@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ren_0',['ren',['../classmta_1_1_breakout.html#ab44d928e353c85387662c8c299ccbdf3',1,'mta::Breakout']]],
-  ['restart_1',['restart',['../structmta_1_1_intent.html#a3414efccca528f27129c672fd97aa217',1,'mta::Intent::restart'],['../structmta_1_1_keys.html#a67c0d5afefdafe07e9a648501b51f9d2',1,'mta::Keys::restart']]],
-  ['right_2',['right',['../structmta_1_1_keys.html#a7cd357583a46987e4e59ba6ce92baf9c',1,'mta::Keys']]]
+  ['score_0',['score',['../struct_game_1_1_game_state.html#a1ad8714afd99401de8ca1b98d1def127',1,'Game::GameState']]],
+  ['size_1',['size',['../struct_game_1_1_drawable.html#a12e4720565645ac73ab5d0f4621c2c79',1,'Game::Drawable']]],
+  ['solid_2',['solid',['../struct_game_1_1_collider.html#ac81a7626e43e6c267fd730c24d9f789f',1,'Game::Collider']]]
 ];

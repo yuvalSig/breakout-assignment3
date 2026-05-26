@@ -6,17 +6,20 @@ OUTPUT_DIRECTORY = docs
 GENERATE_HTML = YES
 GENERATE_LATEX = NO
 
-INPUT = breakout_submission
+INPUT = .
+
+USE_MDFILE_AS_MAINPAGE = README.md
 
 RECURSIVE = YES
 
-FILE_PATTERNS = *.h *.cpp
+FILE_PATTERNS = *.h *.cpp *.md
 
 EXCLUDE = \
-breakout_submission/lib \
-breakout_submission/cmake-build-debug \
-breakout_submission/docs \
-breakout_submission/bagel.h
+./lib \
+./cmake-build-debug \
+./docs \
+./html \
+./bagel.h
 
 EXCLUDE_PATTERNS = \
 */lib/* \
@@ -24,7 +27,8 @@ EXCLUDE_PATTERNS = \
 */SDL_image/* \
 */box2d/* \
 */cmake-build-debug/* \
-*/docs/*
+*/docs/* \
+*/html/*
 
 EXTRACT_ALL = YES
 EXTRACT_PRIVATE = YES

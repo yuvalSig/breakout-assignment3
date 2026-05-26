@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['win_0',['win',['../classmta_1_1_breakout.html#a2e6c1415d73a97dcc8adc386dbbccdaf',1,'mta::Breakout']]],
-  ['win_5fh_1',['WIN_H',['../classmta_1_1_breakout.html#a40b1107c3076906b876ffc6c2cb759d7',1,'mta::Breakout']]],
-  ['win_5fw_2',['WIN_W',['../classmta_1_1_breakout.html#aea7174410c680a83e557fb12f6b24860',1,'mta::Breakout']]],
-  ['won_3',['won',['../structmta_1_1_gameplay.html#a4643db6d961d9685f8e731da59523355',1,'mta::Gameplay']]]
+  ['win_0',['win',['../class_game_1_1_breakout.html#a9bc9f36f63b47bb745eef6cf7c1d529d',1,'Game::Breakout']]],
+  ['win_5fh_1',['WIN_H',['../class_game_1_1_breakout.html#ad05f457b1e144c9745050053dfcc85a8',1,'Game::Breakout']]],
+  ['win_5fw_2',['WIN_W',['../class_game_1_1_breakout.html#a3a064f1f3ef08b21223f335ffc8b6c78',1,'Game::Breakout']]],
+  ['won_3',['won',['../struct_game_1_1_game_state.html#a31de77244f14b4e1fb9a0e8b0b9b46b3',1,'Game::GameState']]]
 ];

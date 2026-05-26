@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['halfsize_0',['halfSize',['../structmta_1_1_collider.html#a33fa0c1aa5ad6abe7d60224fb698e536',1,'mta::Collider']]],
-  ['hitcounter_1',['hitCounter',['../structmta_1_1_gameplay.html#af09d721f49334958e9d1af76fbc6eacb',1,'mta::Gameplay']]]
+  ['halfsize_0',['halfSize',['../struct_game_1_1_collider.html#a4e843cc0f7b4d05d6985545afb7e24d8',1,'Game::Collider']]],
+  ['hitcounter_1',['hitCounter',['../struct_game_1_1_ball_state.html#ac7767010710ba99a8b37fb4c7dd3c3e6',1,'Game::BallState']]]
 ];

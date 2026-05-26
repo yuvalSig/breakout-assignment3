@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['p_0',['p',['../structmta_1_1_transform.html#ac9621d9addd149aa7ad2dd7239ad6171',1,'mta::Transform']]],
-  ['paddle_5fh_1',['PADDLE_H',['../classmta_1_1_breakout.html#ade1e47819c1dc88eac733a6221090978',1,'mta::Breakout']]],
-  ['paddle_5fspeed_2',['PADDLE_SPEED',['../classmta_1_1_breakout.html#a55a0636c52e9ccb8122908dd22104ae9',1,'mta::Breakout']]],
-  ['paddle_5fw_3',['PADDLE_W',['../classmta_1_1_breakout.html#a6c4393586bc8413e47b4d3a9740b4439',1,'mta::Breakout']]],
-  ['paddle_5fy_4',['PADDLE_Y',['../classmta_1_1_breakout.html#ae8473ded4728e72f220f00b7d2267388',1,'mta::Breakout']]]
+  ['ren_0',['ren',['../class_game_1_1_breakout.html#a194817e708a45cf74bb02811ababc440',1,'Game::Breakout']]],
+  ['restart_1',['restart',['../struct_game_1_1_intent.html#acb3a66ccb3351aef06476ea2eae9e02a',1,'Game::Intent::restart'],['../struct_game_1_1_keys.html#a3cc19f82e08d674813e20dac954e1717',1,'Game::Keys::restart']]],
+  ['right_2',['right',['../struct_game_1_1_keys.html#a7396daea0578ca5cbf3a48acd54a1872',1,'Game::Keys']]]
 ];

@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['ren_0',['ren',['../classmta_1_1_breakout.html#ab44d928e353c85387662c8c299ccbdf3',1,'mta::Breakout']]],
-  ['reset_5fball_5fand_5fpaddle_1',['reset_ball_and_paddle',['../classmta_1_1_breakout.html#acb811483680814706408fa12df6ef898',1,'mta::Breakout']]],
-  ['restart_2',['restart',['../structmta_1_1_intent.html#a3414efccca528f27129c672fd97aa217',1,'mta::Intent::restart'],['../structmta_1_1_keys.html#a67c0d5afefdafe07e9a648501b51f9d2',1,'mta::Keys::restart']]],
-  ['right_3',['right',['../structmta_1_1_keys.html#a7cd357583a46987e4e59ba6ce92baf9c',1,'mta::Keys']]],
-  ['run_4',['run',['../classmta_1_1_breakout.html#a0a4c7b9c0d192a50fd829610749adac0',1,'mta::Breakout']]]
+  ['p_0',['p',['../struct_game_1_1_transform.html#af19861f036b5ca4d537cfcdd58d930b8',1,'Game::Transform']]],
+  ['paddle_5fh_1',['PADDLE_H',['../class_game_1_1_breakout.html#ae6a54fd1db31176356c6b3da5f719591',1,'Game::Breakout']]],
+  ['paddle_5fspeed_2',['PADDLE_SPEED',['../class_game_1_1_breakout.html#aed2e1debc61b8822788399445569fbd1',1,'Game::Breakout']]],
+  ['paddle_5fsystem_3',['paddle_system',['../class_game_1_1_breakout.html#aa784c9b2f1d199a335dd7638f996fa0a',1,'Game::Breakout']]],
+  ['paddle_5fw_4',['PADDLE_W',['../class_game_1_1_breakout.html#ac014009f5917425c7930c5ba807b8ed2',1,'Game::Breakout']]],
+  ['paddle_5fy_5',['PADDLE_Y',['../class_game_1_1_breakout.html#a5e76ca5e1e64639ddd06b887f4231e45',1,'Game::Breakout']]],
+  ['paddletag_6',['PaddleTag',['../struct_game_1_1_paddle_tag.html',1,'Game']]]
 ];

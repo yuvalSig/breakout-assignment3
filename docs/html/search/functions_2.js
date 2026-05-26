@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['collision_5fsystem_0',['collision_system',['../classmta_1_1_breakout.html#a586e45c53e6a0cd15242e67d85ce7193',1,'mta::Breakout']]],
-  ['create_5fball_1',['create_ball',['../classmta_1_1_breakout.html#ab2755b962354f7c8df4950b8a868d637',1,'mta::Breakout']]],
-  ['create_5fbody_2',['create_body',['../classmta_1_1_breakout.html#a055a90cac22a16cab0b686532d4616bd',1,'mta::Breakout']]],
-  ['create_5fbricks_3',['create_bricks',['../classmta_1_1_breakout.html#ac34df9aa875ac462a477c4cae396b6b7',1,'mta::Breakout']]],
-  ['create_5fentities_4',['create_entities',['../classmta_1_1_breakout.html#a8d4aea61c71a7f39d5b9e0d0edd1ebf9',1,'mta::Breakout']]],
-  ['create_5fpaddle_5',['create_paddle',['../classmta_1_1_breakout.html#af49fec4036dc26e83b810898382d696d',1,'mta::Breakout']]],
-  ['create_5fstate_6',['create_state',['../classmta_1_1_breakout.html#ab5c87baf84917202f3c191036a313c65',1,'mta::Breakout']]],
-  ['create_5fwalls_7',['create_walls',['../classmta_1_1_breakout.html#a824e304d1772972e6f70e556af3e6e26',1,'mta::Breakout']]]
+  ['collision_5fsystem_0',['collision_system',['../class_game_1_1_breakout.html#a7545c989755f23542c66f7b86f1f9917',1,'Game::Breakout']]],
+  ['create_5fball_1',['create_ball',['../class_game_1_1_breakout.html#a39f236ea3b43574b19da1b543e34be52',1,'Game::Breakout']]],
+  ['create_5fbody_2',['create_body',['../class_game_1_1_breakout.html#ac5fba3e15eca4d81a7322a1bc211726a',1,'Game::Breakout']]],
+  ['create_5fbricks_3',['create_bricks',['../class_game_1_1_breakout.html#aff9091f677c20713a1c62d1d2eaf56a7',1,'Game::Breakout']]],
+  ['create_5fentities_4',['create_entities',['../class_game_1_1_breakout.html#af36c02d1afcaff4cecc00653d2623af0',1,'Game::Breakout']]],
+  ['create_5fpaddle_5',['create_paddle',['../class_game_1_1_breakout.html#a379eaebcbfa1ccd0709f80c124fc91c8',1,'Game::Breakout']]],
+  ['create_5fstate_6',['create_state',['../class_game_1_1_breakout.html#aeafc72318a0b040c04e81b926f6c6c6d',1,'Game::Breakout']]],
+  ['create_5fwalls_7',['create_walls',['../class_game_1_1_breakout.html#a4c7cb43d769deaf21a3f208c7425548f',1,'Game::Breakout']]]
 ];

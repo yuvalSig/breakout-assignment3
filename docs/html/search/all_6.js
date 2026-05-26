@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['halfsize_0',['halfSize',['../structmta_1_1_collider.html#a33fa0c1aa5ad6abe7d60224fb698e536',1,'mta::Collider']]],
-  ['hitcounter_1',['hitCounter',['../structmta_1_1_gameplay.html#af09d721f49334958e9d1af76fbc6eacb',1,'mta::Gameplay']]]
+  ['find_5fentity_5fby_5fbody_0',['find_entity_by_body',['../namespace_game.html#a97111feee0af461ee644f24bd05c5d36',1,'Game']]],
+  ['find_5ffirst_1',['find_first',['../class_game_1_1_breakout.html#a4823740af248343a15eb099fcaddb632',1,'Game::Breakout']]],
+  ['fps_2',['FPS',['../class_game_1_1_breakout.html#a1e1a348a9ac408118c7e65b48ad12cda',1,'Game::Breakout']]]
 ];

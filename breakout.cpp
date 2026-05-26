@@ -9,10 +9,19 @@ using namespace bagel;
 
 namespace Game
 {
+    /**
+     * @brief Checks whether the game was initialized successfully.
+     *
+     * @return true if the SDL resources and Box2D world are valid.
+     */
+
     bool Breakout::valid() const
     {
         return initialized && b2World_IsValid(box);
     }
+    /**
+     * @brief Initializes SDL, the renderer, the Box2D world, and all ECS entities.
+     */
 
     Breakout::Breakout()
     {
@@ -40,6 +49,9 @@ namespace Game
         create_entities();
         initialized = true;
     }
+    /**
+     * @brief Releases the Box2D world and SDL resources.
+     */
 
     Breakout::~Breakout()
     {
@@ -57,6 +69,12 @@ namespace Game
 
         SDL_Quit();
     }
+    /**
+     * @brief Runs the main game loop.
+     *
+     * Each frame updates input, paddle movement, ball attachment, Box2D physics,
+     * collision handling, game-state logic, and rendering.
+     */
 
     void Breakout::run()
     {
@@ -100,6 +118,15 @@ namespace Game
             }
         }
     }
+    /**
+     * @brief Creates all entities required for the Breakout stage.
+     *
+     * @ref create_state
+     * @ref create_walls
+     * @ref create_bricks
+     * @ref create_paddle
+     * @ref create_ball
+     */
 
     void Breakout::create_entities()
     {
@@ -109,6 +136,12 @@ namespace Game
         create_paddle();
         create_ball();
     }
+    /**
+     * @brief Creates the singleton entity that stores global game state.
+     *
+     * @ref StateTag
+     * @ref GameState
+     */
 
     void Breakout::create_state()
     {
@@ -123,6 +156,12 @@ namespace Game
             }
         );
     }
+    /**
+     * @brief Creates the static wall entities used as collision boundaries.
+     *
+     * @ref WallTag
+     * @ref Collider
+     */
 
     void Breakout::create_walls()
     {
@@ -170,6 +209,14 @@ static_cast<float>(WIN_H) / 2.0f
             WallTag{}
         );
     }
+    /**
+     * @brief Creates the grid of breakable brick entities.
+     *
+     * Each brick receives a Transform, Drawable, Collider, BrickTag, and BrickData.
+     *
+     * @ref BrickTag
+     * @ref BrickData
+     */
 
     void Breakout::create_bricks()
     {
@@ -193,6 +240,15 @@ static_cast<float>(WIN_H) / 2.0f
             }
         }
     }
+    /**
+     * @brief Creates the player paddle entity.
+     *
+     * The paddle is controlled by Intent and Keys components and moved through Box2D.
+     *
+     * @ref PaddleTag
+     * @ref Intent
+     * @ref Keys
+     */
 
     void Breakout::create_paddle()
     {
@@ -213,6 +269,12 @@ static_cast<float>(WIN_H) / 2.0f
             PaddleTag{}
         );
     }
+    /**
+     * @brief Creates the ball entity and gives it an initial velocity.
+     *
+     * @ref BallTag
+     * @ref BallState
+     */
 
     void Breakout::create_ball()
     {
@@ -260,6 +322,16 @@ static_cast<float>(WIN_H) / 2.0f
             BallState{false, 0}
         );
     }
+    /**
+     * @brief Creates a rectangular Box2D body.
+     *
+     * @param x Center x position in pixels.
+     * @param y Center y position in pixels.
+     * @param w Width in pixels.
+     * @param h Height in pixels.
+     * @param type Box2D body type.
+     * @return The created Box2D body id.
+     */
 
     b2BodyId Breakout::create_body(float x, float y, float w, float h, b2BodyType type) const
     {
@@ -282,6 +354,15 @@ static_cast<float>(WIN_H) / 2.0f
         b2CreatePolygonShape(body, &shapeDef, &poly);
         return body;
     }
+    /**
+     * @brief Converts raw keyboard state into Intent components.
+     *
+     * This system separates input reading from movement logic.
+     *
+     * @ref Intent
+     * @ref Keys
+     */
+
     void Breakout::input_system() const
     {
         static const Mask mask =
@@ -326,6 +407,15 @@ static_cast<float>(WIN_H) / 2.0f
                 keyboard[keys.restart];
         }
     }
+    /**
+     * @brief Applies paddle movement based on Intent.
+     *
+     * The system updates the paddle Box2D velocity and clamps it to the screen.
+     *
+     * @ref PaddleTag
+     * @ref Intent
+     * @ref Collider
+     */
 
     void Breakout::paddle_system() const
     {
@@ -378,6 +468,16 @@ static_cast<float>(WIN_H) / 2.0f
             );
         }
     }
+    /**
+     * @brief Keeps the ball attached to the paddle before launch.
+     *
+     * If the ball is attached, its position follows the paddle. When launch is true,
+     * the ball is released and receives a velocity.
+     *
+     * @ref BallState
+     * @ref BallTag
+     * @ref PaddleTag
+     */
 
     void Breakout::attached_ball_system() const
     {
@@ -463,6 +563,12 @@ static_cast<float>(WIN_H) / 2.0f
             );
         }
     }
+    /**
+     * @brief Steps the Box2D world and copies body positions into Transform components.
+     *
+     * @ref Transform
+     * @ref Collider
+     */
 
     void Breakout::box_system() const
     {
@@ -510,12 +616,24 @@ static_cast<float>(WIN_H) / 2.0f
             };
         }
     }
+    /**
+     * @brief Checks whether two Box2D body identifiers represent the same body.
+     *
+     * @return true if both identifiers refer to the same body.
+     */
+
     static bool same_body(b2BodyId a, b2BodyId b)
     {
         return a.index1 == b.index1 &&
                a.world0 == b.world0 &&
                a.generation == b.generation;
     }
+    /**
+     * @brief Finds the ECS entity associated with a Box2D body.
+     *
+     * @param body Box2D body identifier.
+     * @return Matching entity or invalid entity if not found.
+     */
 
     static Entity find_entity_by_body(b2BodyId body)
     {
@@ -540,6 +658,18 @@ static_cast<float>(WIN_H) / 2.0f
 
         return Entity{{World::maxId() + 1}};
     }
+    /**
+     * @brief Handles ball collisions with bricks and the paddle.
+     *
+     * Brick collisions update score and remove brick entities. Paddle collisions
+     * adjust the ball direction according to the hit position.
+     *
+     * @ref BallTag
+     * @ref BrickTag
+     * @ref PaddleTag
+     * @ref GameState
+     */
+
     void Breakout::collision_system() const
     {
         Entity ball = find_first<BallTag>();
@@ -673,6 +803,13 @@ static_cast<float>(WIN_H) / 2.0f
             );
         }
     }
+    /**
+     * @brief Draws all drawable entities and end-game messages.
+     *
+     * @ref Drawable
+     * @ref Transform
+     * @ref GameState
+     */
 
     void Breakout::draw_system() const
     {
@@ -758,6 +895,9 @@ static_cast<float>(WIN_H) / 2.0f
             }
         }
     }
+    /**
+     * @brief Resets paddle and ball positions after losing a life.
+     */
 
     void Breakout::reset_ball_and_paddle() const
     {
@@ -859,6 +999,14 @@ static_cast<float>(WIN_H) / 2.0f
         );
     }
 
+    /**
+     * @brief Updates win and loss conditions.
+     *
+     * If all bricks are destroyed, the player wins. If the ball leaves the screen,
+     * a life is removed.
+     *
+     * @ref GameState
+     */
 
     void Breakout::game_state_system()
     {
@@ -900,6 +1048,9 @@ static_cast<float>(WIN_H) / 2.0f
             }
         }
     }
+    /**
+     * @brief Decreases the remaining lives and resets the round.
+     */
 
     void Breakout::lose_life() const
     {
@@ -917,6 +1068,12 @@ static_cast<float>(WIN_H) / 2.0f
 
         reset_ball_and_paddle();
     }
+    /**
+     * @brief Returns a color for a brick row.
+     *
+     * @param row Brick row index.
+     * @return SDL_Color used to render bricks in that row.
+     */
 
     SDL_Color Breakout::brick_color(
         int row
