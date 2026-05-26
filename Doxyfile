@@ -1,0 +1,38 @@
+PROJECT_NAME = Breakout
+PROJECT_BRIEF = Breakout ECS Demo
+
+OUTPUT_DIRECTORY = docs
+
+GENERATE_HTML = YES
+GENERATE_LATEX = NO
+
+INPUT = breakout_submission
+
+RECURSIVE = YES
+
+FILE_PATTERNS = *.h *.cpp
+
+EXCLUDE = \
+breakout_submission/lib \
+breakout_submission/cmake-build-debug \
+breakout_submission/docs \
+breakout_submission/bagel.h
+
+EXCLUDE_PATTERNS = \
+*/lib/* \
+*/SDL/* \
+*/SDL_image/* \
+*/box2d/* \
+*/cmake-build-debug/* \
+*/docs/*
+
+EXTRACT_ALL = YES
+EXTRACT_PRIVATE = YES
+EXTRACT_STATIC = YES
+
+QUIET = NO
+WARN_IF_UNDOCUMENTED = YES
+
+SOURCE_BROWSER = YES
+GENERATE_TREEVIEW = YES
+FULL_PATH_NAMES = NO
