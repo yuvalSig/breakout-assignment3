@@ -1,0 +1,36 @@
+\doxysection{Game::\+Collider Struct Reference}
+\hypertarget{struct_game_1_1_collider}{}\label{struct_game_1_1_collider}\index{Game::Collider@{Game::Collider}}
+
+
+Stores a Box2D body and collision data for an entity.  
+
+
+
+
+{\ttfamily \+\#include $<$breakout.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_game_1_1_collider_a0527de7517557c96dcd570787eae8d9a}\label{struct_game_1_1_collider_a0527de7517557c96dcd570787eae8d9a} 
+b2\+Body\+Id {\bfseries body} = b2\+\_\+null\+Body\+Id
+\begin{DoxyCompactList}\small\item\em Handle to the Box2D rigid body. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_collider_a4e843cc0f7b4d05d6985545afb7e24d8}\label{struct_game_1_1_collider_a4e843cc0f7b4d05d6985545afb7e24d8} 
+SDL\+\_\+\+FPoint {\bfseries half\+Size} \{\}
+\begin{DoxyCompactList}\small\item\em Half-\/extents of the collision shape in pixels. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_collider_ac81a7626e43e6c267fd730c24d9f789f}\label{struct_game_1_1_collider_ac81a7626e43e6c267fd730c24d9f789f} 
+bool {\bfseries solid} = true
+\begin{DoxyCompactList}\small\item\em True for solid bodies, false for sensors. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_collider_a26a1edca4b72de8f3ef1917b445e9c67}\label{struct_game_1_1_collider_a26a1edca4b72de8f3ef1917b445e9c67} 
+bool {\bfseries active} = true
+\begin{DoxyCompactList}\small\item\em Whether this collider participates in physics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores a Box2D body and collision data for an entity. 
+
+The body field connects the ECS entity to the Box2D physics world. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+breakout.\+h\end{DoxyCompactItemize}

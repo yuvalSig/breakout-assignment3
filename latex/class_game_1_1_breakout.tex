@@ -1,0 +1,99 @@
+\doxysection{Game::\+Breakout Class Reference}
+\hypertarget{class_game_1_1_breakout}{}\label{class_game_1_1_breakout}\index{Game::Breakout@{Game::Breakout}}
+
+
+\doxylink{class_game_1_1_breakout}{Breakout} demo implemented using the Bagel ECS engine.  
+
+
+
+
+{\ttfamily \+\#include $<$breakout.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_game_1_1_breakout_a9ba258e8a0f33f6f07ffb03776fe3b53}{Breakout}} ()
+\begin{DoxyCompactList}\small\item\em Initialises SDL, Box2D, and creates all ECS entities. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_game_1_1_breakout_ad602628ed3626f6998d0c75f14e8ec03}{\texorpdfstring{$\sim$}{\string~}\+Breakout}} ()
+\begin{DoxyCompactList}\small\item\em Releases all SDL and Box2D resources. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_game_1_1_breakout_a05dca603d975f6c49e62289568bfdb4b}{run}} ()
+\begin{DoxyCompactList}\small\item\em Runs the main game loop. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a}{valid}} () const
+\begin{DoxyCompactList}\small\item\em Checks whether the game initialised successfully. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_game_1_1_breakout}{Breakout} demo implemented using the Bagel ECS engine. 
+
+\doxylink{class_game_1_1_breakout}{Breakout} owns the SDL window, renderer, spritesheet texture, and Box2D world. It creates the ECS entities that make up the game level and runs the frame loop that updates input, physics, collision handling, and rendering.
+
+All game logic lives in small, independent systems that iterate over entities by component mask, following the same pattern as the lecturer\textquotesingle{}s Pong implementation. No entity is searched by identity; every system operates on whichever entities match its mask.
+
+Box2D sensors are used for brick hits and the death zone below the paddle. Direct contact data is used for paddle deflection.
+
+\begin{DoxyInvariant}{Invariant}
+\doxylink{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a}{valid()} is true only after SDL resources, the spritesheet texture, and the Box2D world were created successfully. 
+
+Each entity with \doxylink{struct_game_1_1_collider}{Collider} is expected to also have \doxylink{struct_game_1_1_transform}{Transform} so Box2D positions can be synchronised into ECS state. 
+
+Each rendered entity is expected to have both \doxylink{struct_game_1_1_transform}{Transform} and \doxylink{struct_game_1_1_drawable}{Drawable} components. 
+\end{DoxyInvariant}
+
+
+\label{class_game_1_1_breakout_doc-constructors}
+\Hypertarget{class_game_1_1_breakout_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_game_1_1_breakout_a9ba258e8a0f33f6f07ffb03776fe3b53}\index{Game::Breakout@{Game::Breakout}!Breakout@{Breakout}}
+\index{Breakout@{Breakout}!Game::Breakout@{Game::Breakout}}
+\doxysubsubsection{\texorpdfstring{Breakout()}{Breakout()}}
+{\footnotesize\ttfamily \label{class_game_1_1_breakout_a9ba258e8a0f33f6f07ffb03776fe3b53} 
+Game::\+\+Breakout::\+\+Breakout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialises SDL, Box2D, and creates all ECS entities. 
+
+Construction may fail without throwing. Call \doxylink{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a}{valid()} before running the game loop. \Hypertarget{class_game_1_1_breakout_ad602628ed3626f6998d0c75f14e8ec03}\index{Game::Breakout@{Game::Breakout}!````~Breakout@{\texorpdfstring{$\sim$}{\string~}Breakout}}
+\index{````~Breakout@{\texorpdfstring{$\sim$}{\string~}Breakout}!Game::Breakout@{Game::Breakout}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Breakout()}{\string~Breakout()}}
+{\footnotesize\ttfamily \label{class_game_1_1_breakout_ad602628ed3626f6998d0c75f14e8ec03} 
+Game::\+\+Breakout::\+\texorpdfstring{$\sim$}{\string~}\+Breakout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Releases all SDL and Box2D resources. 
+
+Destroys the Box2D world, texture, renderer, and window if they were created successfully. 
+
+\label{class_game_1_1_breakout_doc-func-members}
+\Hypertarget{class_game_1_1_breakout_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_1_1_breakout_a05dca603d975f6c49e62289568bfdb4b}\index{Game::Breakout@{Game::Breakout}!run@{run}}
+\index{run@{run}!Game::Breakout@{Game::Breakout}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{class_game_1_1_breakout_a05dca603d975f6c49e62289568bfdb4b} 
+void Game::\+\+Breakout::\+run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Runs the main game loop. 
+
+Calls all systems in order each frame:\+ input, paddle, attached-\/ball, physics, collision, then draw. Terminates when the player quits or \doxylink{struct_game_1_1_game_state}{Game\+State} signals game-\/over or victory. \Hypertarget{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a}\index{Game::Breakout@{Game::Breakout}!valid@{valid}}
+\index{valid@{valid}!Game::Breakout@{Game::Breakout}}
+\doxysubsubsection{\texorpdfstring{valid()}{valid()}}
+{\footnotesize\ttfamily \label{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a} 
+bool Game::\+\+Breakout::\+valid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks whether the game initialised successfully. 
+
+\begin{DoxyReturn}{Returns}
+true if SDL and Box2D were initialised correctly, false otherwise. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+breakout.\+h\item 
+breakout.\+cpp\end{DoxyCompactItemize}

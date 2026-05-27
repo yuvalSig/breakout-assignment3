@@ -1,0 +1,331 @@
+\doxysection{bagel.\+h}
+\hypertarget{bagel_8h_source}{}\label{bagel_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ (C)\ 2026\ Moshe\ Sulamy}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\#include\ <cstdlib>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00010\ \ \ \ \ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }bagel}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ /****\ Parameters\ ****/}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ MaxComponents\ =\ 14;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \ \ DynamicBags\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ IdBagSize\ =\ 10;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ InitialEntities\ =\ 100;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ InitialPackedSize\ =\ 50;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ \ \ CallbackOnDelete\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{using\ }id\_type\ =\ int;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ \{\ id\_type\ id;\ \};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{using\ }mask\_type\ =}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::conditional\_t<MaxComponents<=8,\ std::uint\_fast8\_t,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::conditional\_t<MaxComponents<=16,\ std::uint\_fast16\_t,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::conditional\_t<MaxComponents<=32,\ std::uint\_fast32\_t,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ std::uint\_fast64\_t>>>;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{struct\ }NoInstance\ \{\ NoInstance()\ =\ \textcolor{keyword}{delete};\ \};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{struct\ }NoCopy\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ NoCopy()\ =\ \textcolor{keywordflow}{default};\ \textcolor{comment}{//\ default\ constructor}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ NoCopy(\textcolor{keyword}{const}\ NoCopy\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ NoCopy\&\ operator=(\textcolor{keyword}{const}\ NoCopy\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_static_bag}{StaticBag}}}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_size;\ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ ensure(\textcolor{keywordtype}{int})\ \{\}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push(\textcolor{keyword}{const}\ T\&\ val)\ \{\ \_arr[\_size++]\ =\ val;\ \}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ T\ pop()\ \{\ \textcolor{keywordflow}{return}\ \_arr[-\/-\/\_size];\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ T\&\ operator[](\textcolor{keywordtype}{int}\ idx)\ \{\ \textcolor{keywordflow}{return}\ \_arr[idx];\ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\&\ operator[](\textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_arr[idx];\ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ T\ \ \ \_arr[N];}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_size\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \ \ \};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_dynamic_bag}{DynamicBag}}\ :\ NoCopy}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_size;\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ensure(\textcolor{keywordtype}{int}\ new\_capacity)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (new\_capacity\ >\ \_capacity)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_capacity\ =\ std::max(\_capacity*2,\ new\_capacity);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_arr\ =\ \textcolor{keyword}{static\_cast<}T*\textcolor{keyword}{>}(}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ realloc(\_arr,\ \textcolor{keyword}{sizeof}(T)*\_capacity));}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ push(\textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_size\ ==\ \_capacity)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_capacity\ *=\ 2;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_arr\ =\ \textcolor{keyword}{static\_cast<}T*\textcolor{keyword}{>}(}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ realloc(\_arr,\ \textcolor{keyword}{sizeof}(T)*\_capacity));}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \_arr[\_size]\ =\ val;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ ++\_size;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ T\ pop()\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_arr[-\/-\/\_size];}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classbagel_1_1_dynamic_bag}{\string~DynamicBag}}()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ free(\_arr);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ T\&\ operator[](\textcolor{keywordtype}{int}\ idx)\ \{\ \textcolor{keywordflow}{return}\ \_arr[idx];\ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ T\&\ operator[](\textcolor{keywordtype}{int}\ idx)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_arr[idx];\ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ T*\ \ \ \ \ \ \_arr\ =\ \textcolor{keyword}{static\_cast<}T*\textcolor{keyword}{>}(malloc(\textcolor{keyword}{sizeof}(T)\ *\ N));}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \_size\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \_capacity\ =\ N;}
+\DoxyCodeLine{00087\ \ \ \ \ \};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{using\ }Bag\ =\ std::conditional\_t<DynamicBags,\ DynamicBag<T,N>,\ \doxymbox{\hyperlink{classbagel_1_1_static_bag}{StaticBag<T,N>}}>;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keyword}{using\ }DeleteFunc\ =\ void\ (*)(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}});}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1_register}{Register}};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_sparse_storage}{SparseStorage}}\ final\ :\ \textcolor{keyword}{public}\ NoInstance}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \_comps.ensure(ent.id+1);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \_comps[ent.id]\ =\ val;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ del(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}})\ \{\}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ T\&\ get(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_comps[ent.id];}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<T,InitialEntities>\ \_comps;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \_\_attribute\_\_((used))\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structbagel_1_1_register}{Register<T>}}\ \_reg\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00110\ \ \ \ \ \};}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_tagged_storage}{TaggedStorage}}\ final\ :\ \textcolor{keyword}{public}\ NoInstance}
+\DoxyCodeLine{00113\ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}},\ \textcolor{keyword}{const}\ T\&)\ \{\}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ del(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}})\ \{\}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ T\&\ get(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}})\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \_\_attribute\_\_((used))\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structbagel_1_1_register}{Register<T>}}\ \_reg\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00120\ \ \ \ \ \};}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_packed_storage}{PackedStorage}}\ final\ :\ \textcolor{keyword}{public}\ NoInstance}
+\DoxyCodeLine{00123\ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp.ensure(ent.id+1);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp[ent.id]\ =\ \_comps.size();}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \_comps.push(val);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \_compToId.push(ent.id);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ del(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ \_idToComp[ent.id];}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ id\_type\ last\ =\ \_compToId.pop();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \_comps[idx]\ =\ \_comps.pop();}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \_compToId[idx]\ =\ last;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp[last]\ =\ idx;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ T\&\ get(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_comps[\_idToComp[ent.id]];}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<T,InitialPackedSize>\ \_comps;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<int,InitialEntities>\ \_idToComp;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<id\_type,InitialPackedSize>\ \_compToId;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \_\_attribute\_\_((used))\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structbagel_1_1_register}{Register<T>}}\ \_reg\{del\};}
+\DoxyCodeLine{00147\ \ \ \ \ \};}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_stack_storage}{StackStorage}}\ final\ :\ \textcolor{keyword}{public}\ NoInstance}
+\DoxyCodeLine{00150\ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent,\ \textcolor{keyword}{const}\ T\&\ val)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp.ensure(ent.id+1);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_freeIdx.size()\ >\ 0)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idx\ =\ \_freeIdx.pop();}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp[ent.id]\ =\ idx;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_comps[idx]\ =\ val;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp.ensure(ent.id+1);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_idToComp[ent.id]\ =\ \_comps.size();}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_comps.push(val);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TODO:\ remember\ empty/full\ cells}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ del(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \_freeIdx.push(\_idToComp[ent.id]);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ T\&\ get(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_comps[\_idToComp[ent.id]];}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<T,InitialPackedSize>\ \_comps;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<int,InitialEntities>\ \_idToComp;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<id\_type,IdBagSize>\ \_freeIdx;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \_\_attribute\_\_((used))\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{structbagel_1_1_register}{Register<T>}}\ \_reg\{del\};}
+\DoxyCodeLine{00177\ \ \ \ \ \};}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1_storage}{Storage}}\ final\ :\ NoInstance\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \doxymbox{\hyperlink{classbagel_1_1_sparse_storage}{SparseStorage<T>}};}
+\DoxyCodeLine{00182\ \ \ \ \ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\ final}
+\DoxyCodeLine{00185\ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keyword}{using\ }bit\_type\ =\ mask\_type;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ bit\_type\ bit(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ idx)\ \{\ \textcolor{keywordflow}{return}\ 1<<idx;\ \}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set(\textcolor{keyword}{const}\ bit\_type\ b)\ \{\ \_mask\ |=\ b;\ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear(\textcolor{keyword}{const}\ bit\_type\ b)\ \{\ \_mask\ \&=\ \string~b;\ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \{\ \_mask\ =\ 0;\ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ test(\textcolor{keyword}{const}\ bit\_type\ b)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_mask\ \&\ b;\ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ test(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\ m)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ (\_mask\ \&\ m.\_mask)\ ==\ m.\_mask;\ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ctz()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_mask\ ?\ std::countr\_zero(\_mask)\ :\ -\/1;\ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ mask\_type\ \ \ \_mask\{0\};}
+\DoxyCodeLine{00201\ \ \ \ \ \};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ compCounter\ =\ -\/1;}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}>}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1_component}{Component}}\ final\ :\ NoInstance}
+\DoxyCodeLine{00206\ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ Index\ =\ ++compCounter;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ Mask::bit\_type\ \ Bit\ =\ Mask::bit(Index);}
+\DoxyCodeLine{00209\ \ \ \ \ \};}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_world}{World}}\ final\ :\ \textcolor{keyword}{public}\ NoInstance}
+\DoxyCodeLine{00214\ \ \ \ \ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<Mask,InitialEntities>\ \ \ \ \ \_masks;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ Bag<id\_type,IdBagSize>\ \ \ \ \ \ \ \ \_ids;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ id\_type\ \_maxId\ =\ -\/1;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\&\ \_deleters()\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ Bag<DeleteFunc,MaxComponents>\ \_deleters;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_deleters;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ \doxymbox{\hyperlink{classbagel_1_1_world_a95f5f9ad8fb76cd24f2638cea318e623}{createEntity}}()\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ids.size()\ >\ 0)}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\_ids.pop()\};}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \_masks.push(\doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\{\});}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{++\_maxId\};}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{classbagel_1_1_world_abb8ba217738fee2819c12a96edfb9c8f}{deleteEntity}}(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (CallbackOnDelete)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\ m\ =\ \_masks[ent.id];}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ctz;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((ctz\ =\ m.ctz())\ >=\ 0)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_deleters()[ctz]\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_deleters()[ctz](ent);}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m.clear(Mask::bit(ctz));}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \_masks[ent.id].clear();}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \_ids.push(ent.id);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\&\ mask(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ e)\ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_masks[e.id];}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ T\&\ getComponent(ent\_type\ e)\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Storage<T>::type::get(e);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ addComponent(ent\_type\ ent,\ \textcolor{keyword}{const}\ T\&\ comp)\ \{}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \_masks[ent.id].set(Component<T>::Bit);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ Storage<T>::type::add(ent,comp);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ delComponent(ent\_type\ ent)\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \_masks[ent.id].clear(Component<T>::Bit);}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ Storage<T>::type::del(ent);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ registerDeleter(DeleteFunc\ func)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\_deleters().size()\ <\ Component<T>::Index+1)}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_deleters().push(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \_deleters()[Component<T>::Index]\ =\ func;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ id\_type\ maxId()\ \{\ \textcolor{keywordflow}{return}\ \_maxId;\ \}}
+\DoxyCodeLine{00272\ \ \ \ \ \};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \textcolor{keyword}{struct\ }Register}
+\DoxyCodeLine{00275\ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keyword}{explicit}\ Register(\textcolor{keyword}{const}\ DeleteFunc\ func)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ World::registerDeleter<T>(func);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \};}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{classbagel_1_1_mask_builder}{MaskBuilder}}}
+\DoxyCodeLine{00282\ \ \ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classbagel_1_1_mask_builder}{MaskBuilder}}\&\ set()\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ m.set(Component<T>::Bit);}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\ build()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m;\ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\ m;}
+\DoxyCodeLine{00292\ \ \ \ \ \};}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{class\ }Entity}
+\DoxyCodeLine{00295\ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ Entity(\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ ent)\ :\ \_ent(ent)\ \{\}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ entity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_ent;\ \}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ Entity\ create()\ \{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classbagel_1_1_world_a95f5f9ad8fb76cd24f2638cea318e623}{World::createEntity}}();\ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ destroy()\textcolor{keyword}{\ const\ }\{\ \doxymbox{\hyperlink{classbagel_1_1_world_abb8ba217738fee2819c12a96edfb9c8f}{World::deleteEntity}}(\_ent);\ \}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\&\ mask()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ World::mask(\_ent);\ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ T\&\ get()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ World::getComponent<T>(\_ent);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ T\&\ val)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ World::addComponent<T>(\_ent,val);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \textcolor{keywordtype}{void}\ del()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ World::delComponent<T>(\_ent);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }T,\ \textcolor{keyword}{class\ }...Ts>\ \textcolor{keywordtype}{void}\ addAll(\textcolor{keyword}{const}\ T\&\ val,\ \textcolor{keyword}{const}\ Ts\&...\ vals)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ add(val);}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{sizeof}...(Ts)>0)}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addAll(vals...);}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class\ }T,\ \textcolor{keyword}{class\ }...Ts>\ \textcolor{keywordtype}{void}\ delAll()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ del<T>();}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{sizeof}...(Ts)>0)}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ del<Ts...>();}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>\ \textcolor{keywordtype}{bool}\ has()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mask().test(Component<T>::Bit);\ \}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ test(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}}\&\ m)\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ mask().test(m);\ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ Entity\ first()\ \{\ \textcolor{keywordflow}{return}\ Entity\{\{0\}\};\ \}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ eof()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \_ent.id\ >\ World::maxId();\ \}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ next()\ \{\ ++\_ent.id;\ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\_type}}\ \_ent;}
+\DoxyCodeLine{00334\ \ \ \ \ \};}
+\DoxyCodeLine{00335\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,33 @@
+\doxysection{Game::\+Intent Struct Reference}
+\hypertarget{struct_game_1_1_intent}{}\label{struct_game_1_1_intent}\index{Game::Intent@{Game::Intent}}
+
+
+Stores high-\/level player intentions.  
+
+
+
+
+{\ttfamily \+\#include $<$breakout.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_game_1_1_intent_a3f4557d9fc4aab18efa4a3317edd0bf0}\label{struct_game_1_1_intent_a3f4557d9fc4aab18efa4a3317edd0bf0} 
+float {\bfseries moveX} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Horizontal movement direction:\+ -\/1 left, +1 right, 0 idle. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_intent_ae1f25990d1a4de856a705003de519048}\label{struct_game_1_1_intent_ae1f25990d1a4de856a705003de519048} 
+bool {\bfseries launch} = false
+\begin{DoxyCompactList}\small\item\em True while the launch key is held. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_intent_acb3a66ccb3351aef06476ea2eae9e02a}\label{struct_game_1_1_intent_acb3a66ccb3351aef06476ea2eae9e02a} 
+bool {\bfseries restart} = false
+\begin{DoxyCompactList}\small\item\em True while the restart key is held. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores high-\/level player intentions. 
+
+Raw keyboard input is translated into this component by input\+\_\+system(). Movement systems then read this component instead of the keyboard directly. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+breakout.\+h\end{DoxyCompactItemize}

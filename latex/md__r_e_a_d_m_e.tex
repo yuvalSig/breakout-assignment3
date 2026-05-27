@@ -1,0 +1,40 @@
+\chapter{Breakout ECS – Assignment 3 }
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Breakout ECS – Assignment 3@{Breakout ECS – Assignment 3}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{Authors}{Authors}}\label{md__r_e_a_d_m_e_autotoc_md1}
+
+\begin{DoxyItemize}
+\item May Hajbi
+\item Yuval Sigavi
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysection{\texorpdfstring{Description}{Description}}\label{md__r_e_a_d_m_e_autotoc_md2}
+Implementation of the Breakout game using the Entity Component System (ECS) architecture, built on top of the Bagel ECS engine (\doxylink{bagel_8h_source}{bagel.\+h}) developed in class.\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{\texorpdfstring{Libraries}{Libraries}}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Bagel (\doxylink{bagel_8h_source}{bagel.\+h}) — ECS engine
+\item SDL3 — window, rendering, input
+\item SDL3\+\_\+image — spritesheet loading
+\item Box2D — physics simulation and collision detection
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysection{\texorpdfstring{Architecture}{Architecture}}\label{md__r_e_a_d_m_e_autotoc_md4}
+The game follows the ECS pattern as taught in class:\+
+\begin{DoxyItemize}
+\item {\bfseries{Components}} — Transform, Drawable, Collider, Intent, Keys, Ball\+State, Brick\+Data, Game\+State, and tag components
+\item {\bfseries{Systems}} — input\+\_\+system, move\+\_\+system, attached\+\_\+ball\+\_\+system, box\+\_\+system, collision\+\_\+system, draw\+\_\+system
+\item Input is separated from movement via the Intent component
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysection{\texorpdfstring{Implemented}{Implemented}}\label{md__r_e_a_d_m_e_autotoc_md5}
+
+\begin{DoxyItemize}
+\item ECS structure (Entities, Components, Systems)
+\item Paddle movement via Box2D kinematic body
+\item Ball physics via Box2D dynamic body
+\item Sensor-\/based collision detection (bricks, death zone)
+\item Brick destruction with score tracking
+\item Lives system with heart icons
+\item Win /\+ lose conditions with end-\/game overlay
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysection{\texorpdfstring{How to generate documentation}{How to generate documentation}}\label{md__r_e_a_d_m_e_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{doxygen\ doxyfile}
+
+\end{DoxyCode}
+ Open {\ttfamily html/\+index.\+html} in a browser to view the generated documentation. 

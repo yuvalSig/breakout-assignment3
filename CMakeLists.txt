@@ -20,6 +20,10 @@ set(SDL_SHARED OFF)
 add_subdirectory(lib/SDL)
 target_link_libraries(BreakoutECS PUBLIC SDL3-static)
 
+set(BUILD_SHARED_LIBS OFF)
+add_subdirectory(lib/SDL_image)
+target_link_libraries(BreakoutECS PUBLIC SDL3_image-static)
+
 set(BOX2D_SAMPLES OFF)
 set(BOX2D_BENCHMARKS OFF)
 set(BOX2D_DOCS OFF)

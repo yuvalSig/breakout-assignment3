@@ -1,0 +1,39 @@
+\doxysection{Game::\+Game\+State Struct Reference}
+\hypertarget{struct_game_1_1_game_state}{}\label{struct_game_1_1_game_state}\index{Game::GameState@{Game::GameState}}
+
+
+Stores global game state.  
+
+
+
+
+{\ttfamily \+\#include $<$breakout.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_game_1_1_game_state_a1ad8714afd99401de8ca1b98d1def127}\label{struct_game_1_1_game_state_a1ad8714afd99401de8ca1b98d1def127} 
+int {\bfseries score} = 0
+\begin{DoxyCompactList}\small\item\em Accumulated player score. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_game_state_ac006dd2ac62e863eb6cd055775f84a4c}\label{struct_game_1_1_game_state_ac006dd2ac62e863eb6cd055775f84a4c} 
+int {\bfseries lives} = 3
+\begin{DoxyCompactList}\small\item\em Remaining lives. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_game_state_a4e78f52f25202fcb998e9d3b0669792d}\label{struct_game_1_1_game_state_a4e78f52f25202fcb998e9d3b0669792d} 
+int {\bfseries bricks\+Left} = 0
+\begin{DoxyCompactList}\small\item\em Number of bricks not yet destroyed. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_game_state_a31de77244f14b4e1fb9a0e8b0b9b46b3}\label{struct_game_1_1_game_state_a31de77244f14b4e1fb9a0e8b0b9b46b3} 
+bool {\bfseries won} = false
+\begin{DoxyCompactList}\small\item\em Set to true when all bricks are cleared. \end{DoxyCompactList}\item 
+\Hypertarget{struct_game_1_1_game_state_a53f0a7867d09b082265e788818945cc0}\label{struct_game_1_1_game_state_a53f0a7867d09b082265e788818945cc0} 
+bool {\bfseries game\+Over} = false
+\begin{DoxyCompactList}\small\item\em Set to true when all lives are lost. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores global game state. 
+
+Attached to a single state entity. Updated by collision\+\_\+system() and read by draw\+\_\+system() and the end-\/game check in run(). 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+breakout.\+h\end{DoxyCompactItemize}

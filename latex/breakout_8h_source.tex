@@ -1,0 +1,207 @@
+\doxysection{breakout.\+h}
+\hypertarget{breakout_8h_source}{}\label{breakout_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <SDL3/SDL.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <box2d/box2d.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}bagel.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespace_game}{Game}}\ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ ──\ Components\ ────────────────────────────────────────────────────────────}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_transform}{Transform}}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ SDL\_FPoint\ \doxymbox{\hyperlink{struct_game_1_1_transform_af19861f036b5ca4d537cfcdd58d930b8}{p}}\{\};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{struct_game_1_1_transform_a7f988ddc1dd725ed1d4e08b8f839c497}{angle}}\ =\ 0.0f;\ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_drawable}{Drawable}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ SDL\_FRect\ \ \doxymbox{\hyperlink{struct_game_1_1_drawable_a25275e5beb258d2b6f70821a82b94c1d}{part}}\{\};\ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ SDL\_FPoint\ \doxymbox{\hyperlink{struct_game_1_1_drawable_a12e4720565645ac73ab5d0f4621c2c79}{size}}\{\};\ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_intent}{Intent}}\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{struct_game_1_1_intent_a3f4557d9fc4aab18efa4a3317edd0bf0}{moveX}}\ \ =\ 0.0f;\ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \doxymbox{\hyperlink{struct_game_1_1_intent_ae1f25990d1a4de856a705003de519048}{launch}}\ \ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \doxymbox{\hyperlink{struct_game_1_1_intent_acb3a66ccb3351aef06476ea2eae9e02a}{restart}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_keys}{Keys}}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ SDL\_Scancode\ \doxymbox{\hyperlink{struct_game_1_1_keys_a2ba2d0ec40c8c1547efdb90be1e5f7a1}{left}}\ \ \ \ =\ SDL\_SCANCODE\_LEFT;\ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ SDL\_Scancode\ \doxymbox{\hyperlink{struct_game_1_1_keys_a7396daea0578ca5cbf3a48acd54a1872}{right}}\ \ \ =\ SDL\_SCANCODE\_RIGHT;\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ SDL\_Scancode\ \doxymbox{\hyperlink{struct_game_1_1_keys_aed5ff16e218e51706c961952ad9cf6b3}{launch}}\ \ =\ SDL\_SCANCODE\_SPACE;\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ SDL\_Scancode\ \doxymbox{\hyperlink{struct_game_1_1_keys_a3cc19f82e08d674813e20dac954e1717}{restart}}\ =\ SDL\_SCANCODE\_R;\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_collider}{Collider}}\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ b2BodyId\ \ \ \doxymbox{\hyperlink{struct_game_1_1_collider_a0527de7517557c96dcd570787eae8d9a}{body}}\ \ \ \ \ =\ b2\_nullBodyId;\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ SDL\_FPoint\ \doxymbox{\hyperlink{struct_game_1_1_collider_a4e843cc0f7b4d05d6985545afb7e24d8}{halfSize}}\{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_game_1_1_collider_ac81a7626e43e6c267fd730c24d9f789f}{solid}}\ \ =\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_game_1_1_collider_a26a1edca4b72de8f3ef1917b445e9c67}{active}}\ =\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_ball_state}{BallState}}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_game_1_1_ball_state_a596942a8544672168ccab0b7e3462916}{attached}}\ \ \ =\ \textcolor{keyword}{true};\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \doxymbox{\hyperlink{struct_game_1_1_ball_state_ac7767010710ba99a8b37fb4c7dd3c3e6}{hitCounter}}\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_brick_data}{BrickData}}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_game_1_1_brick_data_adae80f998de2da72f030a9fac42c12de}{value}}\ =\ 0;\ }
+\DoxyCodeLine{00080\ \ \ \ \ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_game_state}{GameState}}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \doxymbox{\hyperlink{struct_game_1_1_game_state_a1ad8714afd99401de8ca1b98d1def127}{score}}\ \ \ \ \ \ =\ 0;\ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \doxymbox{\hyperlink{struct_game_1_1_game_state_ac006dd2ac62e863eb6cd055775f84a4c}{lives}}\ \ \ \ \ \ =\ 3;\ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \doxymbox{\hyperlink{struct_game_1_1_game_state_a4e78f52f25202fcb998e9d3b0669792d}{bricksLeft}}\ =\ 0;\ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_game_1_1_game_state_a31de77244f14b4e1fb9a0e8b0b9b46b3}{won}}\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};\ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_game_1_1_game_state_a53f0a7867d09b082265e788818945cc0}{gameOver}}\ \ \ =\ \textcolor{keyword}{false};\ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ ──\ Tag\ components\ ────────────────────────────────────────────────────────}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_ball_tag}{BallTag}}\ \{\};}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_paddle_tag}{PaddleTag}}\ \{\};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_brick_tag}{BrickTag}}\ \{\};}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_wall_tag}{WallTag}}\ \{\};}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_death_zone_tag}{DeathZoneTag}}\ \{\};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_state_tag}{StateTag}}\ \{\};}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_game_1_1_heart_tag}{HeartTag}}\ \{\};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ ──\ Storage\ overrides\ (packed\ for\ frequently\ iterated\ components)\ ─────────}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \}\ \textcolor{comment}{//\ namespace\ Game}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1_storage}{bagel::Storage}}<\doxymbox{\hyperlink{namespace_game}{Game}}::Intent>\ final\ :\ \doxymbox{\hyperlink{structbagel_1_1_no_instance}{bagel::NoInstance}}\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \doxymbox{\hyperlink{classbagel_1_1_packed_storage}{bagel::PackedStorage<Game::Intent>}};}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <>\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structbagel_1_1_storage}{bagel::Storage}}<\doxymbox{\hyperlink{namespace_game}{Game}}::Keys>\ final\ :\ \doxymbox{\hyperlink{structbagel_1_1_no_instance}{bagel::NoInstance}}\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{using\ }type\ =\ \doxymbox{\hyperlink{classbagel_1_1_packed_storage}{bagel::PackedStorage<Game::Keys>}};}
+\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{namespace\ }\doxymbox{\hyperlink{namespace_game}{Game}}\ \{}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_game_1_1_breakout_a9ba258e8a0f33f6f07ffb03776fe3b53}{Breakout}}}
+\DoxyCodeLine{00151\ \ \ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_game_1_1_breakout_a9ba258e8a0f33f6f07ffb03776fe3b53}{Breakout}}();}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_game_1_1_breakout_ad602628ed3626f6998d0c75f14e8ec03}{\string~Breakout}}();}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_game_1_1_breakout_a05dca603d975f6c49e62289568bfdb4b}{run}}();}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_game_1_1_breakout_a5b0ccaef73debc0bb9ee5ffab402858a}{valid}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Window\ /\ renderer\ constants\ ───────────────────────────────────────}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ WIN\_W\ \ \ \ \ \ =\ 800;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ WIN\_H\ \ \ \ \ \ =\ 600;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ \ FPS\ \ \ \ \ \ \ \ =\ 60;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ Uint64\ GAME\_FRAME\ =\ 1000\ /\ FPS;\ }
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Scale\ constants\ ───────────────────────────────────────────────────}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ TEX\_SCALE\ =\ 0.25f;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BOX\_SCALE\ =\ 10.0f;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BOX\_STEP\ \ =\ 1.0f\ /\ FPS;\ \ \ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Paddle\ constants\ ──────────────────────────────────────────────────}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ PADDLE\_W\ \ \ \ \ =\ 110.0f;\ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ PADDLE\_H\ \ \ \ \ =\ 18.0f;\ \ \ \ \ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ PADDLE\_Y\ \ \ \ \ =\ 550.0f;\ \ \ \ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ PADDLE\_SPEED\ =\ 720.0f;\ \ \ \ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Ball\ constants\ ────────────────────────────────────────────────────}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BALL\_SIZE\ \ \ \ \ \ =\ 16.0f;\ \ \ }
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BALL\_SPEED\_X\ \ \ =\ 320.0f;\ \ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BALL\_SPEED\_Y\ \ \ =\ -\/380.0f;\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BALL\_MIN\_SPEED\ =\ 32.0f;\ \ \ }
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Brick\ grid\ constants\ ──────────────────────────────────────────────}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ BRICK\_ROWS\ \ \ \ =\ 5;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \ \ BRICK\_COLS\ \ \ \ =\ 10;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BRICK\_W\ \ \ \ \ \ \ =\ 64.0f;\ \ \ \ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BRICK\_H\ \ \ \ \ \ \ =\ 24.0f;\ \ \ \ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BRICK\_GAP\ \ \ \ \ =\ 6.0f;\ \ \ \ \ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BRICK\_START\_X\ =\ 53.0f;\ \ \ \ }
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ BRICK\_START\_Y\ =\ 70.0f;\ \ \ \ }
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Sprite\ rects\ inside\ the\ spritesheet\ ───────────────────────────────}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ SDL\_FRect\ WALL\_SPRITE\ \ \ \{\ \ 20.0f,\ \ 17.0f,\ 170.0f,\ 56.0f\ \};\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ SDL\_FRect\ PADDLE\_SPRITE\ \{\ \ 20.0f,\ 396.0f,\ 170.0f,\ 56.0f\ \};\ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ SDL\_FRect\ BALL\_SPRITE\ \ \ \{\ 806.0f,\ 550.0f,\ \ 72.0f,\ 72.0f\ \};\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ SDL\_FRect\ HEART\_SPRITE\ \ \{\ 800.0f,\ 455.0f,\ \ 90.0f,\ 80.0f\ \};\ \ }
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ SDL\ /\ Box2D\ handles\ ───────────────────────────────────────────────}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ SDL\_Texture*\ \ tex\ \ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ SDL\_Window*\ \ \ win\ \ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ SDL\_Renderer*\ ren\ \ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ b2WorldId\ \ \ \ \ box\ \ =\ b2\_nullWorldId;\ \ \ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ initialized\ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Systems\ ───────────────────────────────────────────────────────────}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ input\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ move\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ attached\_ball\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ box\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ collision\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ draw\_system()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Entity\ creation\ helpers\ ───────────────────────────────────────────}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_entities();}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_walls();}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_bricks();}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_paddle();}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_ball();}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_state();}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ create\_hearts();}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \doxymbox{\hyperlink{struct_game_1_1_drawable}{Drawable}}\ make\_drawable(SDL\_FRect\ part,\ SDL\_FPoint\ size);}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ SDL\_FRect\ brick\_sprite(\textcolor{keywordtype}{int}\ row);}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Box2D\ body\ helpers\ ────────────────────────────────────────────────}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ b2BodyId\ create\_body(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ w,\ \textcolor{keywordtype}{float}\ h,}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ b2BodyType\ type,}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ enableSensorEvents\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ b2BodyId\ create\_sensor(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ w,\ \textcolor{keywordtype}{float}\ h)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ Round-\/reset\ helpers\ ───────────────────────────────────────────────}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ reset\_ball(b2BodyId\ ballBody)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ reset\_paddle()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ──\ collision\_system\ helpers\ ──────────────────────────────────────────}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_death\_zone(\doxymbox{\hyperlink{classbagel_1_1_entity}{bagel::Entity}}\ ballEnt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_brick\_hit(\doxymbox{\hyperlink{classbagel_1_1_entity}{bagel::Entity}}\ ballEnt,\ \doxymbox{\hyperlink{classbagel_1_1_entity}{bagel::Entity}}\ brickEnt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ on\_paddle\_contact(\doxymbox{\hyperlink{classbagel_1_1_entity}{bagel::Entity}}\ ballEnt)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00408\ \ \ \ \ \};}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \}\ \textcolor{comment}{//\ namespace\ Game}}
+
+\end{DoxyCode}
