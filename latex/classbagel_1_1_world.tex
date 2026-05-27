@@ -1,0 +1,77 @@
+\doxysection{bagel::\+World Class Reference}
+\hypertarget{classbagel_1_1_world}{}\label{classbagel_1_1_world}\index{bagel::World@{bagel::World}}
+
+
+ECS world.  
+
+
+
+
+{\ttfamily \+\#include $<$bagel.\+h$>$}
+
+Inheritance diagram for bagel::\+World:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classbagel_1_1_world}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} \doxymbox{\hyperlink{classbagel_1_1_world_a95f5f9ad8fb76cd24f2638cea318e623}{create\+Entity}} ()
+\item 
+static void \doxymbox{\hyperlink{classbagel_1_1_world_abb8ba217738fee2819c12a96edfb9c8f}{delete\+Entity}} (\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} ent)
+\item 
+\Hypertarget{classbagel_1_1_world_ac10b6e9d82da9559d2f77cfcf8b90e68}\label{classbagel_1_1_world_ac10b6e9d82da9559d2f77cfcf8b90e68} 
+static const \doxymbox{\hyperlink{classbagel_1_1_mask}{Mask}} \& {\bfseries mask} (\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} e)
+\item 
+\Hypertarget{classbagel_1_1_world_a6b83481d3978ad60bfbfc1bc036a1d5f}\label{classbagel_1_1_world_a6b83481d3978ad60bfbfc1bc036a1d5f} 
+{\footnotesize template$<$class T$>$ }\\static T \& {\bfseries get\+Component} (\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} e)
+\item 
+\Hypertarget{classbagel_1_1_world_aac9b3b0d59778d97d0204057bbf7881f}\label{classbagel_1_1_world_aac9b3b0d59778d97d0204057bbf7881f} 
+{\footnotesize template$<$class T$>$ }\\static void {\bfseries add\+Component} (\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} ent, const T \&comp)
+\item 
+\Hypertarget{classbagel_1_1_world_a2a90851af4ba3e592a604dd2a3cff293}\label{classbagel_1_1_world_a2a90851af4ba3e592a604dd2a3cff293} 
+{\footnotesize template$<$class T$>$ }\\static void {\bfseries del\+Component} (\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} ent)
+\item 
+\Hypertarget{classbagel_1_1_world_a5168635c71b7c64597370900a342c638}\label{classbagel_1_1_world_a5168635c71b7c64597370900a342c638} 
+{\footnotesize template$<$class T$>$ }\\static void {\bfseries register\+Deleter} (Delete\+Func func)
+\item 
+\Hypertarget{classbagel_1_1_world_ac62291ccf023cf34e7229eb044b11355}\label{classbagel_1_1_world_ac62291ccf023cf34e7229eb044b11355} 
+static id\+\_\+type {\bfseries max\+Id} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ECS world. 
+
+Main class of ECS world 
+
+\label{classbagel_1_1_world_doc-func-members}
+\Hypertarget{classbagel_1_1_world_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classbagel_1_1_world_a95f5f9ad8fb76cd24f2638cea318e623}\index{bagel::World@{bagel::World}!createEntity@{createEntity}}
+\index{createEntity@{createEntity}!bagel::World@{bagel::World}}
+\doxysubsubsection{\texorpdfstring{createEntity()}{createEntity()}}
+{\footnotesize\ttfamily \label{classbagel_1_1_world_a95f5f9ad8fb76cd24f2638cea318e623} 
+\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}} bagel::\+\+World::\+create\+Entity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Creates a new entity in the ECS world \begin{DoxyReturn}{Returns}
+The new entity 
+\end{DoxyReturn}
+\Hypertarget{classbagel_1_1_world_abb8ba217738fee2819c12a96edfb9c8f}\index{bagel::World@{bagel::World}!deleteEntity@{deleteEntity}}
+\index{deleteEntity@{deleteEntity}!bagel::World@{bagel::World}}
+\doxysubsubsection{\texorpdfstring{deleteEntity()}{deleteEntity()}}
+{\footnotesize\ttfamily \label{classbagel_1_1_world_abb8ba217738fee2819c12a96edfb9c8f} 
+void bagel::\+\+World::\+delete\+Entity (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{structbagel_1_1ent__type}{ent\+\_\+type}}}]{ent}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+Deletes the given entity from the ECS world 
+\begin{DoxyParams}{Parameters}
+{\em ent} & The entity to delete \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+bagel.\+h\end{DoxyCompactItemize}

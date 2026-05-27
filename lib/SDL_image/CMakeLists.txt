@@ -13,8 +13,8 @@ set(MICRO_VERSION 0)
 set(SDL_REQUIRED_VERSION 3.4.0)
 
 project(SDL3_image
-    LANGUAGES C
-    VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}"
+        LANGUAGES C
+        VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${MICRO_VERSION}"
 )
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/GetGitRevisionDescription.cmake")
@@ -78,7 +78,7 @@ include(GNUInstallDirs)
 
 set(PLATFORM_SUPPORTS_SHARED ON)
 if(EMSCRIPTEN OR VITA OR PSP OR PS2 OR N3DS OR RISCOS)
-  set(PLATFORM_SUPPORTS_SHARED OFF)
+    set(PLATFORM_SUPPORTS_SHARED OFF)
 endif()
 
 option(CMAKE_POSITION_INDEPENDENT_CODE "Build static libraries with -fPIC" ${PLATFORM_SUPPORTS_SHARED})
@@ -96,8 +96,8 @@ option(SDLIMAGE_STRICT "Fail when a dependency could not be found" OFF)
 set(required "")
 set(fatal_error "STATUS")
 if(SDLIMAGE_STRICT)
-  set(required "REQUIRED")
-  set(fatal_error "FATAL_ERROR")
+    set(required "REQUIRED")
+    set(fatal_error "FATAL_ERROR")
 endif()
 
 option(SDLIMAGE_SAMPLES "Build the SDL3_image sample program(s)" ${SDLIMAGE_SAMPLES_DEFAULT})
@@ -146,25 +146,25 @@ else()
     set(SDLIMAGE_AVIF_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_AVIF_SHARED "Dynamically load AVIF support (requires shared libavif)"
-    ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_AVIF ON)
+        ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_AVIF ON)
 
 if(SDLIMAGE_AVIF_VENDORED)
-  set(SDLIMAGE_DAV1D ON)
-  set(SDLIMAGE_DAV1D_VENDORED ON)
-  set(SDLIMAGE_AOM ON)
-  set(SDLIMAGE_AOM_VENDORED ON)
+    set(SDLIMAGE_DAV1D ON)
+    set(SDLIMAGE_DAV1D_VENDORED ON)
+    set(SDLIMAGE_AOM ON)
+    set(SDLIMAGE_AOM_VENDORED ON)
 else()
-  set(SDLIMAGE_DAV1D OFF)
-  set(SDLIMAGE_DAV1D_VENDORED OFF)
-  set(SDLIMAGE_AOM OFF)
-  set(SDLIMAGE_AOM_VENDORED OFF)
+    set(SDLIMAGE_DAV1D OFF)
+    set(SDLIMAGE_DAV1D_VENDORED OFF)
+    set(SDLIMAGE_AOM OFF)
+    set(SDLIMAGE_AOM_VENDORED OFF)
 endif()
 if(SDLIMAGE_AVIF_SHARED)
-  set(SDLIMAGE_DAV1D_SHARED ON)
-  set(SDLIMAGE_AOM_SHARED ON)
+    set(SDLIMAGE_DAV1D_SHARED ON)
+    set(SDLIMAGE_AOM_SHARED ON)
 else()
-  set(SDLIMAGE_DAV1D_SHARED OFF)
-  set(SDLIMAGE_AOM_SHARED OFF)
+    set(SDLIMAGE_DAV1D_SHARED OFF)
+    set(SDLIMAGE_AOM_SHARED OFF)
 endif()
 
 if(SDLIMAGE_VENDORED AND SDLIMAGE_JPG AND NOT (SDLIMAGE_BACKEND_WIC OR SDLIMAGE_BACKEND_STB OR SDLIMAGE_BACKEND_IMAGEIO))
@@ -173,7 +173,7 @@ else()
     set(SDLIMAGE_JPG_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_JPG_SHARED "Dynamically load JPG support (requires shared libjpeg)"
-    ${SDLIMAGE_DEPS_SHARED} "SDLIMAGE_JPG;NOT SDLIMAGE_BACKEND_WIC;NOT SDLIMAGE_BACKEND_STB;NOT SDLIMAGE_BACKEND_IMAGEIO" OFF)
+        ${SDLIMAGE_DEPS_SHARED} "SDLIMAGE_JPG;NOT SDLIMAGE_BACKEND_WIC;NOT SDLIMAGE_BACKEND_STB;NOT SDLIMAGE_BACKEND_IMAGEIO" OFF)
 
 if(SDLIMAGE_VENDORED AND SDLIMAGE_JXL)
     set(SDLIMAGE_JXL_VENDORED ON)
@@ -181,7 +181,7 @@ else()
     set(SDLIMAGE_JXL_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_JXL_SHARED "Dynamically load JXL support (requires shared libjxl)"
-    ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_JXL OFF)
+        ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_JXL OFF)
 
 if(SDLIMAGE_VENDORED AND SDLIMAGE_PNG)
     set(SDLIMAGE_PNG_VENDORED ON)
@@ -189,7 +189,7 @@ else()
     set(SDLIMAGE_PNG_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_PNG_SHARED "Dynamically load PNG support (requires shared libpng)"
-    ${SDLIMAGE_DEPS_SHARED} "SDLIMAGE_PNG" OFF)
+        ${SDLIMAGE_DEPS_SHARED} "SDLIMAGE_PNG" OFF)
 
 if(SDLIMAGE_VENDORED AND SDLIMAGE_TIF AND NOT (SDLIMAGE_BACKEND_IMAGEIO OR SDLIMAGE_BACKEND_WIC))
     set(SDLIMAGE_TIF_VENDORED ON)
@@ -197,7 +197,7 @@ else()
     set(SDLIMAGE_TIF_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_TIF_SHARED "Dynamically load TIFF support (requires shared libtiff)"
-    ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_TIF OFF)
+        ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_TIF OFF)
 
 if(SDLIMAGE_VENDORED AND SDLIMAGE_WEBP)
     set(SDLIMAGE_WEBP_VENDORED ON)
@@ -205,7 +205,7 @@ else()
     set(SDLIMAGE_WEBP_VENDORED OFF)
 endif()
 cmake_dependent_option(SDLIMAGE_WEBP_SHARED "Dynamically load WEBP support (requires shared libwebp)"
-    ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_WEBP OFF)
+        ${SDLIMAGE_DEPS_SHARED} SDLIMAGE_WEBP OFF)
 
 if(SDLIMAGE_PNG_LIBPNG AND SDLIMAGE_PNG_VENDORED)
     set(SDLIMAGE_ZLIB ON)
@@ -241,7 +241,7 @@ endif()
 
 get_property(sdl3_version TARGET ${sdl3_target_name} PROPERTY SDL_FULL_VERSION)
 if(sdl3_version AND sdl3_version VERSION_LESS SDL_REQUIRED_VERSION)
-  message(FATAL_ERROR "SDL3 ${SDL_REQUIRED_VERSION} is required (${sdl3_version} was found)")
+    message(FATAL_ERROR "SDL3 ${SDL_REQUIRED_VERSION} is required (${sdl3_version} was found)")
 endif()
 
 SDL_DetectTargetCPUArchitectures(SDL_CPU_NAMES)
@@ -262,32 +262,32 @@ endif()
 
 set(BUILD_SHARED_LIBS ${SDLIMAGE_BUILD_SHARED_LIBS})
 add_library(${sdl3_image_target_name}
-    src/IMG.c
-    src/IMG_WIC.c
-    src/IMG_ani.c
-    src/IMG_anim_encoder.c
-    src/IMG_anim_decoder.c
-    src/IMG_avif.c
-    src/IMG_bmp.c
-    src/IMG_gif.c
-    src/IMG_gpu.c
-    src/IMG_jpg.c
-    src/IMG_jxl.c
-    src/IMG_lbm.c
-    src/IMG_pcx.c
-    src/IMG_png.c
-    src/IMG_pnm.c
-    src/IMG_qoi.c
-    src/IMG_stb.c
-    src/IMG_svg.c
-    src/IMG_tga.c
-    src/IMG_tif.c
-    src/IMG_webp.c
-    src/IMG_xcf.c
-    src/IMG_xpm.c
-    src/IMG_xv.c
-    src/IMG_libpng.c
-    src/xmlman.c
+        src/IMG.c
+        src/IMG_WIC.c
+        src/IMG_ani.c
+        src/IMG_anim_encoder.c
+        src/IMG_anim_decoder.c
+        src/IMG_avif.c
+        src/IMG_bmp.c
+        src/IMG_gif.c
+        src/IMG_gpu.c
+        src/IMG_jpg.c
+        src/IMG_jxl.c
+        src/IMG_lbm.c
+        src/IMG_pcx.c
+        src/IMG_png.c
+        src/IMG_pnm.c
+        src/IMG_qoi.c
+        src/IMG_stb.c
+        src/IMG_svg.c
+        src/IMG_tga.c
+        src/IMG_tif.c
+        src/IMG_webp.c
+        src/IMG_xcf.c
+        src/IMG_xpm.c
+        src/IMG_xv.c
+        src/IMG_libpng.c
+        src/xmlman.c
 )
 add_library(SDL3_image::${sdl3_image_target_name} ALIAS ${sdl3_image_target_name})
 if(NOT TARGET SDL3_image::SDL3_image)
@@ -299,15 +299,15 @@ else()
     message(WARNING "target_compile_features does not know c_std_99 for C compiler")
 endif()
 target_include_directories(${sdl3_image_target_name}
-    PUBLIC
+        PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 target_compile_definitions(${sdl3_image_target_name} PRIVATE
-    BUILD_SDL
-    SDL_BUILD_MAJOR_VERSION=${MAJOR_VERSION}
-    SDL_BUILD_MINOR_VERSION=${MINOR_VERSION}
-    SDL_BUILD_MICRO_VERSION=${MICRO_VERSION}
+        BUILD_SDL
+        SDL_BUILD_MAJOR_VERSION=${MAJOR_VERSION}
+        SDL_BUILD_MINOR_VERSION=${MINOR_VERSION}
+        SDL_BUILD_MICRO_VERSION=${MICRO_VERSION}
 )
 # Make sure SDL3's include directory comes first
 target_include_directories(${sdl3_image_target_name} PRIVATE $<TARGET_PROPERTY:SDL3::Headers,INTERFACE_INCLUDE_DIRECTORIES>)
@@ -318,49 +318,49 @@ endif()
 sdl_add_warning_options(${sdl3_image_target_name} WARNING_AS_ERROR ${SDLIMAGE_WERROR})
 if(WIN32 AND SDLIMAGE_BUILD_SHARED_LIBS)
     target_sources(${sdl3_image_target_name} PRIVATE
-        src/version.rc
+            src/version.rc
     )
     if(MINGW)
         target_link_options(${sdl3_image_target_name} PRIVATE -static-libgcc)
     endif()
 endif()
 set_target_properties(${sdl3_image_target_name} PROPERTIES
-    OUTPUT_NAME "SDL3_image"
-    DEFINE_SYMBOL DLL_EXPORT
-    EXPORT_NAME ${sdl3_image_target_name}
-    C_VISIBILITY_PRESET "hidden"
+        OUTPUT_NAME "SDL3_image"
+        DEFINE_SYMBOL DLL_EXPORT
+        EXPORT_NAME ${sdl3_image_target_name}
+        C_VISIBILITY_PRESET "hidden"
 )
 
 sdl_target_link_option_version_file(${sdl3_image_target_name} "${CMAKE_CURRENT_SOURCE_DIR}/src/SDL_image.sym")
 
 if(NOT ANDROID)
     set_target_properties(${sdl3_image_target_name} PROPERTIES
-        SOVERSION "${SO_VERSION_MAJOR}"
-        VERSION "${SO_VERSION}"
+            SOVERSION "${SO_VERSION_MAJOR}"
+            VERSION "${SO_VERSION}"
     )
     if(APPLE)
         set_target_properties(${sdl3_image_target_name} PROPERTIES
-            MACHO_COMPATIBILITY_VERSION "${DYLIB_COMPAT_VERSION}"
-            MACHO_CURRENT_VERSION "${DYLIB_CURRENT_VERSION}"
+                MACHO_COMPATIBILITY_VERSION "${DYLIB_COMPAT_VERSION}"
+                MACHO_CURRENT_VERSION "${DYLIB_CURRENT_VERSION}"
         )
         sdl_no_deprecated_errors(${sdl3_image_target_name})
         set_property(TARGET ${sdl3_image_target_name} APPEND PROPERTY LINK_DEPENDS
-            "${PROJECT_SOURCE_DIR}/src/SDL_image.exports")
+                "${PROJECT_SOURCE_DIR}/src/SDL_image.exports")
         target_link_options(${sdl3_image_target_name} PRIVATE
-            "SHELL:-Wl,-exported_symbols_list,${PROJECT_SOURCE_DIR}/src/SDL_image.exports")
+                "SHELL:-Wl,-exported_symbols_list,${PROJECT_SOURCE_DIR}/src/SDL_image.exports")
     endif()
 endif()
 if(SDLIMAGE_BUILD_SHARED_LIBS)
     if(WIN32)
         set_target_properties(${sdl3_image_target_name} PROPERTIES
-            PREFIX ""
-            DLL_NAME_WITH_SOVERSION FALSE
+                PREFIX ""
+                DLL_NAME_WITH_SOVERSION FALSE
         )
     endif()
 else()
     if(MSVC)
         set_target_properties(${sdl3_image_target_name} PROPERTIES
-            OUTPUT_NAME "SDL3_image-static"
+                OUTPUT_NAME "SDL3_image-static"
         )
     endif()
 endif()
@@ -382,8 +382,8 @@ endif()
 
 set(install_license_names)
 macro(register_license NAME FILE)
-  list(APPEND install_license_names ${NAME})
-  set(install_license_${NAME} "${FILE}")
+    list(APPEND install_license_names ${NAME})
+    set(install_license_${NAME} "${FILE}")
 endmacro()
 
 set(INSTALL_EXTRA_TARGETS)
@@ -415,16 +415,16 @@ if(APPLE)
             target_link_libraries(${sdl3_image_target_name} PRIVATE $<${genex_FRAMEWORK}Foundation>)
         else()
             target_link_libraries(${sdl3_image_target_name} PRIVATE
-                $<${genex_FRAMEWORK}CoreGraphics>
-                $<${genex_FRAMEWORK}Foundation>
-                $<${genex_FRAMEWORK}ImageIO>
-                $<${genex_FRAMEWORK}MobileCoreServices>
-                $<${genex_FRAMEWORK}UIKit>
+                    $<${genex_FRAMEWORK}CoreGraphics>
+                    $<${genex_FRAMEWORK}Foundation>
+                    $<${genex_FRAMEWORK}ImageIO>
+                    $<${genex_FRAMEWORK}MobileCoreServices>
+                    $<${genex_FRAMEWORK}UIKit>
             )
         endif()
         target_link_libraries(${sdl3_image_target_name} PRIVATE objc)
         target_sources(${sdl3_image_target_name} PRIVATE
-            src/IMG_ImageIO.m
+                src/IMG_ImageIO.m
         )
 
         if (SDLIMAGE_PNG AND NOT SDLIMAGE_BACKEND_STB)
@@ -520,18 +520,18 @@ if(SDLIMAGE_AOM)
         set(CONFIG_AV1_ENCODER 1 CACHE BOOL "" FORCE)
         # aom detects cpu using CMAKE_SYSTEM_NAME
         if(SDL_CPU_X86)
-          set(AOM_TARGET_CPU "x86")
+            set(AOM_TARGET_CPU "x86")
         elseif(SDL_CPU_X64)
-          set(AOM_TARGET_CPU "x86_64")
+            set(AOM_TARGET_CPU "x86_64")
         elseif(SDL_CPU_ARM32)
-          set(AOM_TARGET_CPU "arm")
-          set(AOM_NEON_INTRIN_FLAG "-mfpu=neon" CACHE STRING "AOM CFLAGS for enabling neon intrinsics")
+            set(AOM_TARGET_CPU "arm")
+            set(AOM_NEON_INTRIN_FLAG "-mfpu=neon" CACHE STRING "AOM CFLAGS for enabling neon intrinsics")
         elseif(SDL_CPU_ARM64)
-          set(AOM_TARGET_CPU "aarch64")
+            set(AOM_TARGET_CPU "aarch64")
         elseif(SDL_CPU_POWERPC32 OR SDL_CPU_POWERPC64)
-          set(AOM_TARGET_CPU "ppc")
+            set(AOM_TARGET_CPU "ppc")
         else()
-          set(AOM_TARGET_CPU "generic")
+            set(AOM_TARGET_CPU "generic")
         endif()
         add_subdirectory(external/aom external/aom-build EXCLUDE_FROM_ALL)
         register_license(aom external/aom/LICENSE)
@@ -578,10 +578,10 @@ if(SDLIMAGE_AVIF)
             list(APPEND PC_LIBS -l$<TARGET_FILE_BASE_NAME:avif>)
         endif()
         if(NOT MSVC AND NOT CMAKE_SYSTEM_NAME MATCHES ".*OpenBSD.*")
-          sdl_check_linker_flag("-Wl,--no-undefined" LINKER_SUPPORTS_WL_NO_UNDEFINED)
-          if(LINKER_SUPPORTS_WL_NO_UNDEFINED)
-            target_link_options(avif PRIVATE "-Wl,--no-undefined")
-          endif()
+            sdl_check_linker_flag("-Wl,--no-undefined" LINKER_SUPPORTS_WL_NO_UNDEFINED)
+            if(LINKER_SUPPORTS_WL_NO_UNDEFINED)
+                target_link_options(avif PRIVATE "-Wl,--no-undefined")
+            endif()
         endif()
     elseif(SDLIMAGE_AVIF_SHARED AND DEFINED SDLIMAGE_DYNAMIC_AVIF AND EXISTS "${SDLIMAGE_DYNAMIC_AVIF}")
         message(STATUS "${PROJECT_NAME}: Using libavif from CMake variable")
@@ -601,15 +601,15 @@ if(SDLIMAGE_AVIF)
     endif()
     if(SDLIMAGE_AVIF_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_AVIF
-            SAVE_AVIF=$<BOOL:${SDLIMAGE_AVIF_SAVE}>
+                LOAD_AVIF
+                SAVE_AVIF=$<BOOL:${SDLIMAGE_AVIF_SAVE}>
         )
         if(SDLIMAGE_AVIF_SHARED)
             if(NOT DEFINED SDLIMAGE_DYNAMIC_AVIF)
                 target_include_directories(${sdl3_image_target_name} PRIVATE
-                    $<TARGET_PROPERTY:avif,INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:avif,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:avif,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:avif,INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:avif,INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:avif,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
                 )
                 if(SDLIMAGE_AVIF_VENDORED)
                     add_dependencies(${sdl3_image_target_name} avif)
@@ -633,8 +633,8 @@ if(SDLIMAGE_ANI)
     set(SDLIMAGE_ANI_ENABLED TRUE)
     if(SDLIMAGE_ANI_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_ANI
-            SAVE_ANI=$<BOOL:${SDLIMAGE_ANI_SAVE}>
+                LOAD_ANI
+                SAVE_ANI=$<BOOL:${SDLIMAGE_ANI_SAVE}>
         )
     else()
         # Variable is used by test suite
@@ -648,8 +648,8 @@ if(SDLIMAGE_BMP)
     set(SDLIMAGE_BMP_ENABLED TRUE)
     if(SDLIMAGE_BMP_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_BMP
-            SAVE_BMP=$<BOOL:${SDLIMAGE_BMP_SAVE}>
+                LOAD_BMP
+                SAVE_BMP=$<BOOL:${SDLIMAGE_BMP_SAVE}>
         )
     else()
         # Variable is used by test suite
@@ -663,8 +663,8 @@ if(SDLIMAGE_GIF)
     set(SDLIMAGE_GIF_ENABLED TRUE)
     if(SDLIMAGE_GIF_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_GIF
-            SAVE_GIF=$<BOOL:${SDLIMAGE_GIF_SAVE}>
+                LOAD_GIF
+                SAVE_GIF=$<BOOL:${SDLIMAGE_GIF_SAVE}>
         )
     else()
         # Variable is used by test suite
@@ -712,12 +712,12 @@ if(SDLIMAGE_JPG)
             if(SDLIMAGE_JPG_SHARED)
                 if(NOT DEFINED SDLIMAGE_DYNAMIC_JPEG)
                     target_include_directories(${sdl3_image_target_name} PRIVATE
-                        $<TARGET_PROPERTY:JPEG::JPEG,INCLUDE_DIRECTORIES>
-                        $<TARGET_PROPERTY:JPEG::JPEG,INTERFACE_INCLUDE_DIRECTORIES>
-                        $<TARGET_PROPERTY:JPEG::JPEG,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:JPEG::JPEG,INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:JPEG::JPEG,INTERFACE_INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:JPEG::JPEG,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
                     )
                     if(SDLIMAGE_JPG_VENDORED)
-                      add_dependencies(${sdl3_image_target_name} JPEG::JPEG)
+                        add_dependencies(${sdl3_image_target_name} JPEG::JPEG)
                     endif()
                 endif()
                 target_get_dynamic_library(SDLIMAGE_DYNAMIC_JPEG JPEG::JPEG)
@@ -726,12 +726,12 @@ if(SDLIMAGE_JPG)
             else()
                 target_link_libraries(${sdl3_image_target_name} PRIVATE JPEG::JPEG)
             endif()
-      endif()
+        endif()
     endif()
     if(SDLIMAGE_JPG_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_JPG
-            SAVE_JPG=$<BOOL:${SDLIMAGE_JPG_SAVE}>
+                LOAD_JPG
+                SAVE_JPG=$<BOOL:${SDLIMAGE_JPG_SAVE}>
         )
     else()
         # Variable is used by test suite
@@ -777,8 +777,8 @@ if(SDLIMAGE_JXL)
             set(jxl_lib jxl_dec-static)
             set(jxl_install_libs brotlidec brotlicommon hwy jxl_dec-static)
             list(APPEND PC_LIBS
-                -l$<TARGET_FILE_BASE_NAME:brotlidec> -l$<TARGET_FILE_BASE_NAME:brotlicommon>
-                -l$<TARGET_FILE_BASE_NAME:brotlienc> -l$<TARGET_FILE_BASE_NAME:jxl>
+                    -l$<TARGET_FILE_BASE_NAME:brotlidec> -l$<TARGET_FILE_BASE_NAME:brotlicommon>
+                    -l$<TARGET_FILE_BASE_NAME:brotlienc> -l$<TARGET_FILE_BASE_NAME:jxl>
             )
         endif()
         if(SDLIMAGE_JXL_SHARED OR NOT SDLIMAGE_BUILD_SHARED_LIBS)
@@ -808,11 +808,11 @@ if(SDLIMAGE_JXL)
     if(SDLIMAGE_JXL_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE LOAD_JXL)
         if(SDLIMAGE_JXL_SHARED)
-           if(NOT DEFINED SDLIMAGE_DYNAMIC_JXL)
+            if(NOT DEFINED SDLIMAGE_DYNAMIC_JXL)
                 target_include_directories(${sdl3_image_target_name} PRIVATE
-                    $<TARGET_PROPERTY:libjxl::libjxl,INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:libjxl::libjxl,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:libjxl::libjxl,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:libjxl::libjxl,INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:libjxl::libjxl,INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:libjxl::libjxl,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
                 )
                 if(SDLIMAGE_JXL_VENDORED)
                     add_dependencies(${sdl3_image_target_name} libjxl::libjxl)
@@ -900,7 +900,7 @@ if(SDLIMAGE_PNG)
     if(SDLIMAGE_LIBPNG_ENABLED)
         set(SDLIMAGE_APNG_ENABLED TRUE)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            SDL_IMAGE_LIBPNG
+                SDL_IMAGE_LIBPNG
         )
         if(SDLIMAGE_PNG_SHARED)
             if(NOT DEFINED SDLIMAGE_DYNAMIC_PNG)
@@ -910,14 +910,14 @@ if(SDLIMAGE_PNG)
                     set(png_target PNG::PNG)
                 endif()
                 target_include_directories(${sdl3_image_target_name} PRIVATE
-                    $<TARGET_PROPERTY:${png_target},INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:${png_target},INTERFACE_INCLUDE_DIRECTORIES>
                 )
                 if(SDLIMAGE_PNG_VENDORED)
                     add_dependencies(${sdl3_image_target_name} ${png_target})
                 endif()
             else()
-              # target_get_dynamic_library will ignore target
-              set(png_target dont_care)
+                # target_get_dynamic_library will ignore target
+                set(png_target dont_care)
             endif()
             target_get_dynamic_library(SDLIMAGE_DYNAMIC_PNG ${png_target})
             message(STATUS "Dynamic libpng: ${SDLIMAGE_DYNAMIC_PNG}")
@@ -928,8 +928,8 @@ if(SDLIMAGE_PNG)
     endif()
 
     target_compile_definitions(${sdl3_image_target_name} PRIVATE
-        LOAD_PNG
-        SAVE_PNG=$<BOOL:${SDLIMAGE_PNG_SAVE}>
+            LOAD_PNG
+            SAVE_PNG=$<BOOL:${SDLIMAGE_PNG_SAVE}>
     )
 endif()
 
@@ -959,13 +959,13 @@ set(SDLIMAGE_TGA_ENABLED FALSE)
 if(SDLIMAGE_TGA)
     set(SDLIMAGE_TGA_ENABLED TRUE)
     if(SDLIMAGE_TGA_ENABLED)
-      target_compile_definitions(${sdl3_image_target_name} PRIVATE
-          LOAD_TGA
-          SAVE_TGA=$<BOOL:${SDLIMAGE_TGA_SAVE}>
-      )
+        target_compile_definitions(${sdl3_image_target_name} PRIVATE
+                LOAD_TGA
+                SAVE_TGA=$<BOOL:${SDLIMAGE_TGA_SAVE}>
+        )
     else()
-      # Variable is used by test suite
-      set(SDLIMAGE_TGA_SAVE OFF)
+        # Variable is used by test suite
+        set(SDLIMAGE_TGA_SAVE OFF)
     endif()
 endif()
 
@@ -1013,7 +1013,7 @@ if(SDLIMAGE_TIF)
             add_library(TIFF::TIFF ALIAS tiff)
             set(SDLIMAGE_TIF_TARGET "TIFF::tiff")
             if(SDLIMAGE_TIF_SHARED OR NOT SDLIMAGE_BUILD_SHARED_LIBS)
-              list(APPEND INSTALL_EXTRA_TARGETS tiff)
+                list(APPEND INSTALL_EXTRA_TARGETS tiff)
             endif()
             set_target_properties(tiff PROPERTIES EXPORT_NAME external_libtiff)
             add_library(SDL3_image::external_libtiff ALIAS tiff)
@@ -1048,12 +1048,12 @@ if(SDLIMAGE_TIF)
             if(SDLIMAGE_TIF_SHARED)
                 if(NOT DEFINED SDLIMAGE_DYNAMIC_TIF)
                     target_include_directories(${sdl3_image_target_name} PRIVATE
-                        $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INCLUDE_DIRECTORIES>
-                        $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INTERFACE_INCLUDE_DIRECTORIES>
-                        $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INTERFACE_INCLUDE_DIRECTORIES>
+                            $<TARGET_PROPERTY:${SDLIMAGE_TIF_TARGET},INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
                     )
                     if(SDLIMAGE_TIF_VENDORED)
-                      add_dependencies(${sdl3_image_target_name} ${SDLIMAGE_TIF_TARGET})
+                        add_dependencies(${sdl3_image_target_name} ${SDLIMAGE_TIF_TARGET})
                     endif()
                 else()
                     # target_get_dynamic_library will ignore target
@@ -1114,8 +1114,8 @@ if(SDLIMAGE_WEBP)
             message(STATUS "${PROJECT_NAME}: Using system libwebp")
             set(SDLIMAGE_WEBP_ENABLED TRUE)
             if(NOT SDLIMAGE_WEBP_SHARED)
-              list(APPEND PC_REQUIRES libwebp libwebpdemux libwebpmux)
-              list(APPEND INSTALL_EXTRA_CMAKE_MODULES cmake/Findwebp.cmake)
+                list(APPEND PC_REQUIRES libwebp libwebpdemux libwebpmux)
+                list(APPEND INSTALL_EXTRA_CMAKE_MODULES cmake/Findwebp.cmake)
             endif()
         else()
             message(${fatal_error} "libwebp NOT found")
@@ -1123,21 +1123,21 @@ if(SDLIMAGE_WEBP)
     endif()
     if(SDLIMAGE_WEBP_ENABLED)
         target_compile_definitions(${sdl3_image_target_name} PRIVATE
-            LOAD_WEBP
-            SAVE_WEBP=$<BOOL:${SDLIMAGE_WEBP_SAVE}>
+                LOAD_WEBP
+                SAVE_WEBP=$<BOOL:${SDLIMAGE_WEBP_SAVE}>
         )
         if(SDLIMAGE_WEBP_SHARED)
-           if(NOT DEFINED SDLIMAGE_DYNAMIC_WEBP AND NOT DEFINED SDLIMAGE_DYNAMIC_WEBPDEMUX AND NOT DEFINED SDLIMAGE_DYNAMIC_WEBPMUX)
+            if(NOT DEFINED SDLIMAGE_DYNAMIC_WEBP AND NOT DEFINED SDLIMAGE_DYNAMIC_WEBPDEMUX AND NOT DEFINED SDLIMAGE_DYNAMIC_WEBPMUX)
                 target_include_directories(${sdl3_image_target_name} PRIVATE
-                    $<TARGET_PROPERTY:WebP::webp,INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::webp,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::webp,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::webpdemux,INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::webpdemux,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::webpdemux,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::libwebpmux,INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::libwebpmux,INTERFACE_INCLUDE_DIRECTORIES>
-                    $<TARGET_PROPERTY:WebP::libwebpmux,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webp,INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webp,INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webp,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webpdemux,INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webpdemux,INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::webpdemux,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::libwebpmux,INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::libwebpmux,INTERFACE_INCLUDE_DIRECTORIES>
+                        $<TARGET_PROPERTY:WebP::libwebpmux,INTERFACE_SYSTEM_INCLUDE_DIRECTORIES>
                 )
                 if(SDLIMAGE_WEBP_VENDORED)
                     add_dependencies(${sdl3_image_target_name} WebP::webp WebP::webpdemux WebP::libwebpmux)
@@ -1156,8 +1156,8 @@ if(SDLIMAGE_WEBP)
             target_link_libraries(${sdl3_image_target_name} PRIVATE WebP::webp WebP::webpdemux WebP::libwebpmux)
         endif()
     else()
-      # Variable is used by test suite
-      set(SDLIMAGE_WEBP_SAVE OFF)
+        # Variable is used by test suite
+        set(SDLIMAGE_WEBP_SAVE OFF)
     endif()
 endif()
 
@@ -1187,15 +1187,15 @@ set(BUILD_SHARED_LIBS ${SDLIMAGE_BUILD_SHARED_LIBS})
 
 if(SDLIMAGE_INSTALL)
     install(
-        TARGETS ${sdl3_image_target_name}
-        EXPORT SDL3ImageExports
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT devel
-        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT library
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT library
+            TARGETS ${sdl3_image_target_name}
+            EXPORT SDL3ImageExports
+            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT devel
+            LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT library
+            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT library
     )
     install(
-        FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/SDL3_image/SDL_image.h"
-        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/SDL3_image" COMPONENT DEVEL
+            FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/SDL3_image/SDL_image.h"
+            DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/SDL3_image" COMPONENT DEVEL
     )
 
     export(TARGETS ${sdl3_image_target_name} ${INSTALL_EXTRA_TARGETS} NAMESPACE "SDL3_image::" FILE "${sdl3_image_target_name}-targets.cmake")
@@ -1216,11 +1216,11 @@ if(SDLIMAGE_INSTALL)
             set(archive_destination ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT devel)
         endif()
         install(
-            TARGETS ${INSTALL_EXTRA_TARGETS}
-            EXPORT SDL3ImageExports
-            ${archive_destination}
-            LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT library
-            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT library
+                TARGETS ${INSTALL_EXTRA_TARGETS}
+                EXPORT SDL3ImageExports
+                ${archive_destination}
+                LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT library
+                RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" COMPONENT library
         )
         if(MSVC)
             foreach(tgt IN LISTS INSTALL_EXTRA_TARGETS)
@@ -1244,44 +1244,44 @@ if(SDLIMAGE_INSTALL)
     endif()
 
     configure_package_config_file(cmake/SDL3_imageConfig.cmake.in SDL3_imageConfig.cmake
-        NO_SET_AND_CHECK_MACRO
-        INSTALL_DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
+            NO_SET_AND_CHECK_MACRO
+            INSTALL_DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
     )
     write_basic_package_version_file("${PROJECT_BINARY_DIR}/SDL3_imageConfigVersion.cmake"
-        COMPATIBILITY AnyNewerVersion
+            COMPATIBILITY AnyNewerVersion
     )
     install(
-        FILES
+            FILES
             "${CMAKE_CURRENT_BINARY_DIR}/SDL3_imageConfig.cmake"
             "${CMAKE_CURRENT_BINARY_DIR}/SDL3_imageConfigVersion.cmake"
             ${INSTALL_EXTRA_CMAKE_MODULES}
-        DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
-        COMPONENT devel
+            DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
+            COMPONENT devel
     )
     install(EXPORT SDL3ImageExports
-        FILE ${sdl3_image_target_name}-targets.cmake
-        NAMESPACE SDL3_image::
-        DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
-        COMPONENT devel
+            FILE ${sdl3_image_target_name}-targets.cmake
+            NAMESPACE SDL3_image::
+            DESTINATION "${SDLIMAGE_INSTALL_CMAKEDIR}"
+            COMPONENT devel
     )
 
     if(SDLIMAGE_RELOCATABLE)
-      file(RELATIVE_PATH SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG "${CMAKE_INSTALL_PREFIX}/${SDLIMAGE_PKGCONFIG_INSTALLDIR}" "${CMAKE_INSTALL_PREFIX}")
-      string(REGEX REPLACE "[/]+$" "" SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG "${SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG}")
-      set(SDL_PKGCONFIG_PREFIX "\${pcfiledir}/${SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG}")
+        file(RELATIVE_PATH SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG "${CMAKE_INSTALL_PREFIX}/${SDLIMAGE_PKGCONFIG_INSTALLDIR}" "${CMAKE_INSTALL_PREFIX}")
+        string(REGEX REPLACE "[/]+$" "" SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG "${SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG}")
+        set(SDL_PKGCONFIG_PREFIX "\${pcfiledir}/${SDL_PATH_PREFIX_RELATIVE_TO_PKGCONFIG}")
     else()
-      set(SDL_PKGCONFIG_PREFIX "${CMAKE_INSTALL_PREFIX}")
+        set(SDL_PKGCONFIG_PREFIX "${CMAKE_INSTALL_PREFIX}")
     endif()
 
     if(IS_ABSOLUTE "${CMAKE_INSTALL_INCLUDEDIR}")
-      set(INCLUDEDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_INCLUDEDIR}")
+        set(INCLUDEDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_INCLUDEDIR}")
     else()
-      set(INCLUDEDIR_FOR_PKG_CONFIG "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
+        set(INCLUDEDIR_FOR_PKG_CONFIG "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
     endif()
     if(IS_ABSOLUTE "${CMAKE_INSTALL_LIBDIR}")
-      set(LIBDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_LIBDIR}")
+        set(LIBDIR_FOR_PKG_CONFIG "${CMAKE_INSTALL_LIBDIR}")
     else()
-      set(LIBDIR_FOR_PKG_CONFIG "\${prefix}/${CMAKE_INSTALL_LIBDIR}")
+        set(LIBDIR_FOR_PKG_CONFIG "\${prefix}/${CMAKE_INSTALL_LIBDIR}")
     endif()
 
     string(JOIN " " PC_REQUIRES ${PC_REQUIRES})
@@ -1290,11 +1290,11 @@ if(SDLIMAGE_INSTALL)
 
     # Always install sdl3-image.pc file: libraries might be different between config modes
     install(FILES "${CMAKE_CURRENT_BINARY_DIR}/sdl3-image.pc"
-        DESTINATION "${SDLIMAGE_PKGCONFIG_INSTALLDIR}" COMPONENT devel)
+            DESTINATION "${SDLIMAGE_PKGCONFIG_INSTALLDIR}" COMPONENT devel)
 
     install(FILES "LICENSE.txt"
-        DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/licenses/${PROJECT_NAME}"
-        COMPONENT library
+            DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/licenses/${PROJECT_NAME}"
+            COMPONENT library
     )
 
     foreach(license_name IN LISTS install_license_names)
@@ -1318,10 +1318,10 @@ if(SDLIMAGE_INSTALL)
     if(SDLIMAGE_INSTALL_MAN)
         sdl_get_git_revision_hash(SDLIMAGE_REVISION)
         SDL_generate_manpages(
-            HEADERS_DIR "${PROJECT_SOURCE_DIR}/include/SDL3_image"
-            SYMBOL "IMG_Init"
-            WIKIHEADERS_PL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build-scripts/wikiheaders.pl"
-            REVISION "${SDLIMAGE_REVISION}"
+                HEADERS_DIR "${PROJECT_SOURCE_DIR}/include/SDL3_image"
+                SYMBOL "IMG_Init"
+                WIKIHEADERS_PL_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build-scripts/wikiheaders.pl"
+                REVISION "${SDLIMAGE_REVISION}"
         )
     endif()
 
@@ -1329,7 +1329,7 @@ if(SDLIMAGE_INSTALL)
         configure_file(cmake/cmake_uninstall.cmake.in cmake_uninstall.cmake IMMEDIATE @ONLY)
 
         add_custom_target(uninstall
-            COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+                COMMAND ${CMAKE_COMMAND} -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
     endif()
 endif()
 
@@ -1347,7 +1347,7 @@ if(SDLIMAGE_SAMPLES)
 
         if(SDLIMAGE_SAMPLES_INSTALL)
             install(TARGETS ${TARGET}
-                RUNTIME DESTINATION "${CMAKE_INSTALL_LIBEXECDIR}/installed-tests/SDL3_image"
+                    RUNTIME DESTINATION "${CMAKE_INSTALL_LIBEXECDIR}/installed-tests/SDL3_image"
             )
             if(MSVC)
                 SDL_install_pdb("${TARGET}" "${CMAKE_INSTALL_LIBEXECDIR}/installed-tests/SDL3_image")
@@ -1369,15 +1369,15 @@ endif()
 set(available_deps)
 set(unavailable_deps)
 foreach(dep IN LISTS SDLIMAGE_BACKENDS)
-  set(var SDLIMAGE_${dep}_ENABLED)
-  if(NOT DEFINED ${var})
-    message(AUTHOR_WARNING "${var} not defined")
-  endif()
-  if(${var})
-    list(APPEND available_deps ${dep})
-  else()
-    list(APPEND unavailable_deps ${dep})
-  endif()
+    set(var SDLIMAGE_${dep}_ENABLED)
+    if(NOT DEFINED ${var})
+        message(AUTHOR_WARNING "${var} not defined")
+    endif()
+    if(${var})
+        list(APPEND available_deps ${dep})
+    else()
+        list(APPEND unavailable_deps ${dep})
+    endif()
 endforeach()
 string(JOIN " " avail_str ${available_deps})
 string(TOLOWER "${avail_str}" avail_str)
